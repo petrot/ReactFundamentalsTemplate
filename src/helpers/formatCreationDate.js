@@ -5,8 +5,8 @@ export const formatCreationDate = (date) => {
   const dateObject = new Date(date);
 
   return [
-    padTo2Digits(dateObject.getDate()),
     padTo2Digits(dateObject.getMonth() + 1),
+    padTo2Digits(dateObject.getDate()),
     dateObject.getFullYear(),
   ].join(".");
 };
