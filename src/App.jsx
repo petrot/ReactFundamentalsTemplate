@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./App.module.css";
+import { CourseInfo, Courses, Header } from "./components";
+import { mockedAuthorsList, mockedCoursesList } from "./constants";
 
 // Module 1:
 // * use mockedAuthorsList and mockedCoursesList mocked data
@@ -25,12 +27,38 @@ import styles from "./App.module.css";
 // * wrap 'CourseForm' in the 'PrivateRoute' component
 
 function App() {
-  // write your code here
+  const [activeCourseId, setActiveCourseId] = useState(undefined);
+  const courses = mockedCoursesList;
+  const authors = mockedAuthorsList;
+
+  const onShowCourseClick = (id) => {
+    setActiveCourseId(id);
+  };
+
+  const onBackClick = () => {
+    setActiveCourseId(undefined);
+  };
 
   return (
     <div className={styles.wrapper}>
-      {/* place Header component */}
-      <div className={styles.container}>{/* place other components */}</div>
+      <Header />
+
+      <div className={styles.container}>
+        {activeCourseId ? (
+          <CourseInfo
+            coursesList={courses}
+            authorsList={authors}
+            onBack={onBackClick}
+            showCourseId={activeCourseId}
+          ></CourseInfo>
+        ) : (
+          <Courses
+            coursesList={courses}
+            authorsList={authors}
+            handleShowCourse={onShowCourseClick}
+          ></Courses>
+        )}
+      </div>
     </div>
   );
 }

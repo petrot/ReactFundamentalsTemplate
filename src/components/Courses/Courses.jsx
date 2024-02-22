@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./styles.module.css";
+import { CourseCard } from "./components";
+import { Button, Input } from "../../common";
+import { BUTTON_CAPTIONS } from "../../constants";
+import { EmptyCourseList } from "../EmptyCourseList";
 
 // Module 1:
 // * render list of components using 'CourseCard' component for each course
@@ -32,17 +36,62 @@ import styles from "./styles.module.css";
 //   ** CourseForm should be shown after a click on the "Add new course" button.
 
 export const Courses = ({ coursesList, authorsList, handleShowCourse }) => {
-  // write your code here
+  const getFilteredCourseItems = (courses) => {
+    return courses.map((course) => (
+      <CourseCard
+        course={course}
+        handleShowCourse={() => handleShowCourse(course.id)}
+        authorsList={course.authors.map((authorId) =>
+          authorsList
+            .filter((author) => author.id === authorId)
+            .map((author) => author.name)
+        )}
+      ></CourseCard>
+    ));
+  };
 
-  // for EmptyCourseList component container use data-testid="emptyContainer" attribute
-  // for button in EmptyCourseList component add data-testid="addCourse" attribute
+  const [filteredCourseItems, setFilteredCourseItems] = useState(
+    getFilteredCourseItems(coursesList)
+  );
+  const [filter, setFilter] = useState("");
 
-  return (
+  const onSearchClick = () => {
+    setFilteredCourseItems(
+      getFilteredCourseItems(
+        filter
+          ? coursesList.filter(
+              (c) =>
+                c.title.toString().includes(filter) ||
+                c.id.toString().includes(filter)
+            )
+          : coursesList
+      )
+    );
+  };
+
+  return coursesList.length > 0 ? (
     <>
-      <div className={styles.panel}>
-        // reuse Button component for 'ADD NEW COURSE' button
+      <div className={styles.toolbar}>
+        <div className={styles.search}>
+          <Input
+            className={styles.filterInput}
+            placeholderText="Input text"
+            labelText=""
+            onChange={({ target }) => setFilter(target.value)}
+          />
+          <Button
+            className={styles.filterButton}
+            buttonText={BUTTON_CAPTIONS.search}
+            handleClick={onSearchClick}
+          />
+        </div>
+        <div className={styles.panel}>
+          <Button buttonText={BUTTON_CAPTIONS.addNewCourse} />
+        </div>
       </div>
-      // use '.map' array method to render all courses. Use CourseCard component
+      {filteredCourseItems}
     </>
+  ) : (
+    <EmptyCourseList data-testid="emptyContainer"></EmptyCourseList>
   );
 };

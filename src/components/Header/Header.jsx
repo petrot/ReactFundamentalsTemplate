@@ -1,6 +1,9 @@
 import React from "react";
 
 import styles from "./styles.module.css";
+import { Logo } from "./components";
+import { Button } from "../../common";
+import { BUTTON_CAPTIONS } from "../../constants";
 
 // Module 1:
 // * add Logo and Button components
@@ -32,14 +35,23 @@ import styles from "./styles.module.css";
 //   ** Header should have logo and user's name.
 
 export const Header = () => {
-  // write your code here
+  const onHeaderButtonClick = () => {
+    console.log("Button clicked");
+  };
+
+  const isAuthorized = false;
 
   return (
     <div className={styles.headerContainer}>
-      // use Logo component
+      <Logo />
       <div className={styles.userContainer}>
         <p className={styles.userName}>Harry Potter</p>
-        // reuse Button component for 'Login / Logout' button
+        <Button
+          buttonText={
+            isAuthorized ? BUTTON_CAPTIONS.logout : BUTTON_CAPTIONS.login
+          }
+          handleClick={onHeaderButtonClick}
+        />
       </div>
     </div>
   );

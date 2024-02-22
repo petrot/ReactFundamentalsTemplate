@@ -38,37 +38,47 @@ import deleteIcon from "../../../../assets/deleteButtonIcon.svg";
 import editIcon from "../../../../assets/editButtonIcon.svg";
 
 import styles from "./styles.module.css";
+import { Button } from "../../../../common";
 
 export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
-  // write your code here
+  const onDeleteButtonClick = () => {
+    console.error("Delete clicked on ", course.id);
+  };
+  const onUpdateButtonClick = () => {
+    console.error("Update clicked on ", course.id);
+  };
 
   return (
     <div className={styles.cardContainer} data-testid="courseCard">
       <div className={styles.cardText}>
-        <h2>Title</h2>
-        <p>Description</p>
+        <h2>{course.title}</h2>
+        <p>{course.description}</p>
       </div>
       <div className={styles.cardDetails}>
         <p>
           <b>Authors: </b>
-          authors list
+          {authorsList.join(", ")}
         </p>
         <p>
           <b>Duration:</b>
-          <span>duration</span>
+          <span>{getCourseDuration(course.duration)}</span>
         </p>
         <p>
           <b>Created: </b>
-          <span>date</span>
+          <span>{formatCreationDate(course.creationDate)}</span>
         </p>
         <div className={styles.buttonsContainer}>
-          {/* 
-				reuse Button component for 'Show course' button 
-				reuse Button	component with deleteButtonIcon from 'src/assets' for 'Delete' button
-						with data-testid="deleteCourse" 
-				reuse Link component with editButtonIcon from 'src/assets' for 'Update' button with
-						data-testid="updateCourse" 
-			*/}
+          <Button buttonText="Show course" handleClick={handleShowCourse} />
+          <Button
+            data-testid="deleteCourse"
+            buttonText={<img src={deleteIcon} alt="delete" />}
+            handleClick={onDeleteButtonClick}
+          />
+          <Button
+            data-testid="updateCourse"
+            buttonText={<img src={editIcon} alt="edit" />}
+            handleClick={onUpdateButtonClick}
+          />
         </div>
       </div>
     </div>

@@ -1,5 +1,8 @@
-export const getCourseDuration = (duration) => {
-  // write your solution here
+import { padTo2Digits } from "./padTo2Digits";
 
-  return duration;
+export const getCourseDuration = (duration) => {
+  const m = duration % 60;
+  const h = (duration - m) / 60;
+
+  return `${padTo2Digits(h)}:${padTo2Digits(m)} hours`;
 };

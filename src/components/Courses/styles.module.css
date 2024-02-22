@@ -1,5 +1,14 @@
-.panel {
+
+.toolbar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between
+}
+
+.panel {
+  margin: 16px 0;
+}
+
+.search {
+  display: flex;
   margin: 16px 0;
 }
