@@ -1,6 +1,6 @@
-import { padTo2Digits } from "./padTo2Digits";
-
 export const formatCreationDate = (date) => {
+  return date.toString().split("/").join(".");
+  /*
   // write your solution here
   const dateObject = new Date(date);
 
@@ -9,4 +9,5 @@ export const formatCreationDate = (date) => {
     padTo2Digits(dateObject.getDate()),
     dateObject.getFullYear(),
   ].join(".");
+  */
 };
