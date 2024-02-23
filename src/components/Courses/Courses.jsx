@@ -42,9 +42,7 @@ export const Courses = ({ coursesList, authorsList, handleShowCourse }) => {
         course={course}
         handleShowCourse={() => handleShowCourse(course.id)}
         authorsList={course.authors.map((authorId) =>
-          authorsList
-            .filter((author) => author.id === authorId)
-            .map((author) => author.name)
+          authorsList.find((author) => author.id === authorId)
         )}
       ></CourseCard>
     ));

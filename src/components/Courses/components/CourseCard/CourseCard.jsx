@@ -57,7 +57,7 @@ export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
       <div className={styles.cardDetails}>
         <p>
           <b>Authors: </b>
-          {authorsList.join(", ")}
+          {authorsList.map((author) => author.name).join(", ")}
         </p>
         <p>
           <b>Duration:</b>
