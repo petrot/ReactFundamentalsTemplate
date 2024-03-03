@@ -1,6 +1,19 @@
 .authorItem {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    align-items: flex-end;
+}
+
+.authorItem button {
+    background: none !important;
+    color: black;
+}
+
+.buttons {
   display: flex;
-  justify-content: space-between;
-  margin-top: 16px;
-  align-items: flex-end;
+}
+
+.buttons img {
+  filter: invert(1);
 }

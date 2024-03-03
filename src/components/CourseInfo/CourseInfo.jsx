@@ -27,24 +27,23 @@ import React from "react";
 import { formatCreationDate, getCourseDuration } from "../../helpers";
 
 import styles from "./styles.module.css";
-import { Button } from "../../common";
-import { BUTTON_CAPTIONS } from "../../constants";
+import { Link, useParams } from "react-router-dom";
+import { mockedAuthorsList, mockedCoursesList } from "../../constants";
 
 // props description
 // * 'coursesList' - list of all courses. You need it to get chosen course from the list
 // * 'authorsList' - list of all authors. You need it to get authors' names for chosen course
 // * 'showCourseId' - id of chosen course. Use it to find needed course on the 'coursesList'.
-export const CourseInfo = ({
-  coursesList,
-  authorsList,
-  onBack,
-  showCourseId,
-}) => {
-  const course = coursesList.find((c) => c.id === showCourseId);
+export const CourseInfo = () => {
+  const coursesList = mockedCoursesList;
+  const authorsList = mockedAuthorsList;
+
+  const params = useParams();
+  const course = coursesList.find((c) => c.id === params.courseId);
 
   return (
     <div className={styles.container} data-testid="courseInfo">
-      <h1>{course.title}</h1>
+      <h1>{course?.title}</h1>
       <div className={styles.courseInfo}>
         <p className={styles.description}>{course.description}</p>
         <div>
@@ -66,8 +65,10 @@ export const CourseInfo = ({
               {course.authors.map((authorId) =>
                 authorsList
                   .filter((author) => author.id === authorId)
-                  .map((author) => (
-                    <li className={styles.authorsList}>{author.name}</li>
+                  .map((author, idx) => (
+                    <li key={idx} className={styles.authorsList}>
+                      {author.name}
+                    </li>
                   ))
               )}
             </ul>
@@ -75,13 +76,10 @@ export const CourseInfo = ({
         </div>
       </div>
       <div className={styles.backButton}>
-        <Button buttonText={BUTTON_CAPTIONS.back} handleClick={onBack} />
+        <Link className={styles.back} to={`/courses`}>
+          Back
+        </Link>
       </div>
-      {/*
-   // Module 1: reuse Button component for 'onBack' functionality // Module
-      2: use 'react-router-dom' 'Link' component for button 'Back' and remove
-      'onBack' prop
-*/}
     </div>
   );
 };

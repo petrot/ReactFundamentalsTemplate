@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./styles.module.css";
 import { Logo } from "./components";
 import { Button } from "../../common";
 import { BUTTON_CAPTIONS } from "../../constants";
+import { useNavigate } from "react-router-dom";
 
 // Module 1:
 // * add Logo and Button components
@@ -35,23 +36,47 @@ import { BUTTON_CAPTIONS } from "../../constants";
 //   ** Header should have logo and user's name.
 
 export const Header = () => {
-  const onHeaderButtonClick = () => {
-    console.log("Button clicked");
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const localUser = localStorage.getItem("user");
+
+    if (localUser) {
+      setUser(JSON.parse(localUser));
+    }
+  }, []);
+
+  const onLogoutClick = () => {
+    localStorage.setItem("token", "");
+    localStorage.setItem("user", "");
+    setUser(undefined);
+
+    navigate("/login", { replace: true });
   };
 
-  const isAuthorized = false;
+  const onLoginClick = () => {
+    navigate("/login", { replace: true });
+  };
 
   return (
     <div className={styles.headerContainer}>
       <Logo />
+
       <div className={styles.userContainer}>
-        <p className={styles.userName}>Harry Potter</p>
-        <Button
-          buttonText={
-            isAuthorized ? BUTTON_CAPTIONS.logout : BUTTON_CAPTIONS.login
-          }
-          handleClick={onHeaderButtonClick}
-        />
+        <p className={styles.userName}>{user?.name}</p>
+        {user ? (
+          <Button
+            buttonText={BUTTON_CAPTIONS.logout}
+            handleClick={onLogoutClick}
+          />
+        ) : (
+          <Button
+            buttonText={BUTTON_CAPTIONS.login}
+            handleClick={onLoginClick}
+          />
+        )}
       </div>
     </div>
   );

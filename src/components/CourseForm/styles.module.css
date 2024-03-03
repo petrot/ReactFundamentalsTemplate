@@ -68,3 +68,9 @@ form {
   gap: 20px;
   margin: 40px 0;
 }
+
+.validationError {
+  color: red;
+  font-size: 12px;
+  margin: 0;
+}

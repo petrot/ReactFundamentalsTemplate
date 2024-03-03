@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import styles from "./styles.module.css";
 import { CourseCard } from "./components";
 import { Button, Input } from "../../common";
-import { BUTTON_CAPTIONS } from "../../constants";
+import {
+  BUTTON_CAPTIONS,
+  mockedAuthorsList,
+  mockedCoursesList,
+} from "../../constants";
 import { EmptyCourseList } from "../EmptyCourseList";
+import { Outlet, useNavigate } from "react-router-dom";
 
 // Module 1:
 // * render list of components using 'CourseCard' component for each course
@@ -35,12 +40,20 @@ import { EmptyCourseList } from "../EmptyCourseList";
 //   ** Courses should display amount of CourseCard equal length of courses array.
 //   ** CourseForm should be shown after a click on the "Add new course" button.
 
-export const Courses = ({ coursesList, authorsList, handleShowCourse }) => {
+export const Courses = () => {
+  const navigate = useNavigate();
+
+  const coursesList = mockedCoursesList;
+  const authorsList = mockedAuthorsList;
+
   const getFilteredCourseItems = (courses) => {
-    return courses.map((course) => (
+    return courses?.map((course, i) => (
       <CourseCard
         course={course}
-        handleShowCourse={() => handleShowCourse(course.id)}
+        key={i}
+        handleShowCourse={() =>
+          navigate("/courses/" + course.id, { replace: true })
+        }
         authorsList={course.authors.map((authorId) =>
           authorsList.find((author) => author.id === authorId)
         )}
@@ -48,10 +61,10 @@ export const Courses = ({ coursesList, authorsList, handleShowCourse }) => {
     ));
   };
 
+  const [filter, setFilter] = useState("");
   const [filteredCourseItems, setFilteredCourseItems] = useState(
     getFilteredCourseItems(coursesList)
   );
-  const [filter, setFilter] = useState("");
 
   const onSearchClick = () => {
     setFilteredCourseItems(
@@ -67,7 +80,7 @@ export const Courses = ({ coursesList, authorsList, handleShowCourse }) => {
     );
   };
 
-  return coursesList.length > 0 ? (
+  return coursesList?.length > 0 ? (
     <>
       <div className={styles.toolbar}>
         <div className={styles.search}>
@@ -84,10 +97,14 @@ export const Courses = ({ coursesList, authorsList, handleShowCourse }) => {
           />
         </div>
         <div className={styles.panel}>
-          <Button buttonText={BUTTON_CAPTIONS.addNewCourse} />
+          <Button
+            buttonText={BUTTON_CAPTIONS.addNewCourse}
+            handleClick={() => navigate("/courses/add", { replace: true })}
+          />
         </div>
       </div>
       {filteredCourseItems}
+      <Outlet />
     </>
   ) : (
     <EmptyCourseList data-testid="emptyContainer"></EmptyCourseList>

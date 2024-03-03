@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useEffect } from "react";
 
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styles from "./App.module.css";
-import { CourseInfo, Courses, Header } from "./components";
-import { mockedAuthorsList, mockedCoursesList } from "./constants";
+import { Header } from "./components";
 
 // Module 1:
 // * use mockedAuthorsList and mockedCoursesList mocked data
@@ -27,37 +27,23 @@ import { mockedAuthorsList, mockedCoursesList } from "./constants";
 // * wrap 'CourseForm' in the 'PrivateRoute' component
 
 function App() {
-  const [activeCourseId, setActiveCourseId] = useState(undefined);
-  const courses = mockedCoursesList;
-  const authors = mockedAuthorsList;
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const onShowCourseClick = (id) => {
-    setActiveCourseId(id);
-  };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-  const onBackClick = () => {
-    setActiveCourseId(undefined);
-  };
+    if (token && location.pathname === "/") {
+      navigate("/courses", { replace: true });
+    }
+  }, [navigate, location]);
 
   return (
     <div className={styles.wrapper}>
       <Header />
 
       <div className={styles.container}>
-        {activeCourseId ? (
-          <CourseInfo
-            coursesList={courses}
-            authorsList={authors}
-            onBack={onBackClick}
-            showCourseId={activeCourseId}
-          ></CourseInfo>
-        ) : (
-          <Courses
-            coursesList={courses}
-            authorsList={authors}
-            handleShowCourse={onShowCourseClick}
-          ></Courses>
-        )}
+        <Outlet />
       </div>
     </div>
   );

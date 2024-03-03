@@ -21,3 +21,9 @@
 	max-width: 254px;
 	margin-bottom: 20px;
 }
+
+.registration {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}

@@ -54,4 +54,8 @@ export const BUTTON_CAPTIONS = {
   addNewCourse: "Add new course",
   search: "Search",
   back: "Back",
+  register: "Register",
+  createCourse: "Create course",
+  createAuthor: "Create author",
+  cancel: "Cancel",
 };
