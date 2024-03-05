@@ -48,7 +48,6 @@ export const Registration = () => {
 
     setFormErrors(errors);
 
-    // Return immediately, not wait for state..
     return errors;
   };
 

@@ -122,7 +122,6 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
 
     setFormErrors(errors);
 
-    // Return immediately, not wait for state..
     return errors;
   };
 

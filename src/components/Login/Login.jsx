@@ -51,7 +51,6 @@ export const Login = () => {
 
     setFormErrors(errors);
 
-    // Return immediately, not wait for state..
     return errors;
   };
 
