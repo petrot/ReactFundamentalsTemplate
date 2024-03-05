@@ -9,7 +9,7 @@ import {
   mockedCoursesList,
 } from "../../constants";
 import { EmptyCourseList } from "../EmptyCourseList";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 // Module 1:
 // * render list of components using 'CourseCard' component for each course
@@ -99,8 +99,13 @@ export const Courses = () => {
         </div>
         <div className={styles.panel}>
           <Button
-            buttonText={BUTTON_CAPTIONS.addNewCourse}
-            handleClick={() => navigate("/courses/add", { replace: true })}
+            className={styles.addNewCourse}
+            buttonText={
+              <Link className={styles.addNewCourse} to="/courses/add">
+                {BUTTON_CAPTIONS.addNewCourse}
+              </Link>
+            }
+            handleClick={onSearchClick}
           />
         </div>
       </div>

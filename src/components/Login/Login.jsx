@@ -72,7 +72,6 @@ export const Login = () => {
         <form onSubmit={handleSubmit}>
           <Input
             name="email"
-            type="email"
             className={styles.filterInput}
             placeholderText="Input text"
             labelText="Email"
@@ -83,7 +82,6 @@ export const Login = () => {
 
           <Input
             name="password"
-            type="password"
             className={styles.filterInput}
             placeholderText="Input text"
             labelText="Password"
@@ -98,7 +96,7 @@ export const Login = () => {
           />
         </form>
         <p>
-          If you don't have an account you can&nbsp;
+          If you don't have an account you can &nbsp;
           <Link className={styles.registration} to={`/registration`}>
             Registration
           </Link>

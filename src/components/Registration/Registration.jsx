@@ -62,7 +62,6 @@ export const Registration = () => {
         <form onSubmit={handleSubmit}>
           <Input
             name="name"
-            type="text"
             className={styles.filterInput}
             placeholderText="Input text"
             labelText="Name"
@@ -73,7 +72,6 @@ export const Registration = () => {
 
           <Input
             name="email"
-            type="email"
             className={styles.filterInput}
             placeholderText="Input text"
             labelText="Email"
@@ -84,7 +82,6 @@ export const Registration = () => {
 
           <Input
             name="password"
-            type="password"
             className={styles.filterInput}
             placeholderText="Input text"
             labelText="Password"

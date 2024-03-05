@@ -46,3 +46,8 @@
   background: inherit;
   border: 0;
 }
+
+.panel a {
+  color: white;
+  text-decoration: none;
+}

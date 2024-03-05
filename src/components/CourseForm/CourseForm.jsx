@@ -141,7 +141,6 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
       <form onSubmit={handleSubmit}>
         <Input
           name="title"
-          type="text"
           placeholderText="Input text"
           labelText="Title"
           data-testid="titleInput"
@@ -168,7 +167,6 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
             <div className={styles.duration}>
               <Input
                 name="duration"
-                type="number"
                 placeholderText="Input text"
                 labelText="Duration"
                 data-testid="durationInput"

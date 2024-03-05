@@ -49,12 +49,12 @@ export const mockedAuthorsList = [
 ];
 
 export const BUTTON_CAPTIONS = {
-  login: "Login",
-  logout: "Logout",
-  addNewCourse: "Add new course",
-  search: "Search",
+  login: "LOGIN",
+  logout: "LOGOUT",
+  addNewCourse: "ADD NEW COURSE",
+  search: "SEARCH",
   back: "BACK",
-  register: "Register",
+  register: "REGISTER",
   createCourse: "CREATE COURSE",
   createAuthor: "CREATE AUTHOR",
   cancel: "CANCEL",

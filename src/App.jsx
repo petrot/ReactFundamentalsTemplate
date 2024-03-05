@@ -1,8 +1,16 @@
 import { useEffect, useRef } from "react";
 
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import styles from "./App.module.css";
-import { Header } from "./components";
+import {
+  CourseForm,
+  CourseInfo,
+  Courses,
+  Header,
+  Login,
+  Registration,
+} from "./components";
+import { mockedAuthorsList, mockedCoursesList } from "./constants";
 
 // Module 1:
 // * use mockedAuthorsList and mockedCoursesList mocked data
@@ -31,6 +39,9 @@ function App() {
   const location = useLocation();
   const isCalledRef = useRef(false);
 
+  const coursesList = mockedCoursesList;
+  const authorsList = mockedAuthorsList;
+
   useEffect(() => {
     if (!isCalledRef.current) {
       isCalledRef.current = true;
@@ -38,9 +49,10 @@ function App() {
 
       if (token && location.pathname === "/") {
         navigate("/courses", { replace: true });
-      } else if (!token && location.pathname !== "/registration") {
-        navigate("/login", { replace: true });
       }
+      /* else if (!token && location.pathname !== "/registration") {
+        navigate("/login", { replace: true });
+      }*/
     }
   }, [navigate, location]);
 
@@ -49,7 +61,19 @@ function App() {
       <Header />
 
       <div className={styles.container}>
-        <Outlet />
+        <Routes>
+          <Route path="courses" element={<Courses />}></Route>
+          <Route path="courses/add" element={<CourseForm />} />
+          <Route
+            path="courses/:courseId"
+            element={
+              <CourseInfo coursesList={coursesList} authorsList={authorsList} />
+            }
+          />
+          <Route path="login" element={<Login />} />
+          <Route path="registration" element={<Registration />} />
+          <Route path="*" element={<Login />} />
+        </Routes>
       </div>
     </div>
   );

@@ -20,7 +20,6 @@ export const Input = ({
         name={name}
         value={value}
         onChange={onChange}
-        type={type}
         placeholder={placeholderText}
         className={styles.input}
         data-testid={dataTestId}
