@@ -44,7 +44,7 @@ export const Registration = () => {
     if (!hasErrors) {
       const response = await createUser(formValues);
 
-      if (response.successful) {
+      if (response?.successful) {
         navigate("/login", { replace: true });
       }
     }

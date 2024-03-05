@@ -52,7 +52,7 @@ export const Login = () => {
     if (!hasErrors) {
       const response = await login(formValues);
 
-      if (response.successful) {
+      if (response?.successful) {
         localStorage.setItem("token", JSON.stringify(response.result));
         localStorage.setItem("user", JSON.stringify(response.user));
 
