@@ -62,7 +62,12 @@ function App() {
 
       <div className={styles.container}>
         <Routes>
-          <Route path="courses" element={<Courses />}></Route>
+          <Route
+            path="courses"
+            element={
+              <Courses coursesList={coursesList} authorsList={authorsList} />
+            }
+          ></Route>
           <Route path="courses/add" element={<CourseForm />} />
           <Route
             path="courses/:courseId"

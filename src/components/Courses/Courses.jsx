@@ -3,11 +3,7 @@ import { useState } from "react";
 import styles from "./styles.module.css";
 import { CourseCard } from "./components";
 import { Button, Input } from "../../common";
-import {
-  BUTTON_CAPTIONS,
-  mockedAuthorsList,
-  mockedCoursesList,
-} from "../../constants";
+import { BUTTON_CAPTIONS } from "../../constants";
 import { EmptyCourseList } from "../EmptyCourseList";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
@@ -40,11 +36,8 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 //   ** Courses should display amount of CourseCard equal length of courses array.
 //   ** CourseForm should be shown after a click on the "Add new course" button.
 
-export const Courses = () => {
+export const Courses = ({ coursesList, authorsList }) => {
   const navigate = useNavigate();
-
-  const coursesList = mockedCoursesList;
-  const authorsList = mockedAuthorsList;
 
   const getFilteredCourseItems = (courses) => {
     return courses?.map((course, i) => (
