@@ -56,10 +56,6 @@ export const Header = () => {
     navigate("/login", { replace: true });
   };
 
-  const onLoginClick = () => {
-    navigate("/login", { replace: true });
-  };
-
   return (
     <div className={styles.headerContainer}>
       <Logo />
@@ -72,10 +68,7 @@ export const Header = () => {
             handleClick={onLogoutClick}
           />
         ) : (
-          <Button
-            buttonText={BUTTON_CAPTIONS.login}
-            handleClick={onLoginClick}
-          />
+          ""
         )}
       </div>
     </div>

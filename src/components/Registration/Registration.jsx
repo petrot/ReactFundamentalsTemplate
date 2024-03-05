@@ -26,24 +26,37 @@ export const Registration = () => {
     password: "",
   });
   const [formErrors, setFormErrors] = useState({
-    name: true,
-    email: true,
-    password: true,
+    name: false,
+    email: false,
+    password: false,
   });
-  const [formTouched, setFormTouched] = useState(false);
 
   const handleInputChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
-    setFormErrors({ ...formErrors, [event.target.name]: !event.target.value });
-    setFormTouched(true);
+    setFormErrors({
+      ...formErrors,
+      [event.target.name]: formErrors[event.target.name] && !event.target.value,
+    });
+  };
+
+  const validate = () => {
+    const errors = {
+      email: !formValues?.email,
+      name: !formValues?.name,
+      password: !formValues?.password,
+    };
+
+    setFormErrors(errors);
+
+    // Return immediately, not wait for state..
+    return errors;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setFormTouched(true);
-
-    const hasErrors = Object.values(formErrors).some((error) => !!error);
+    const errors = validate();
+    const hasErrors = Object.values(errors).some((error) => !!error);
 
     if (!hasErrors) {
       const response = await createUser(formValues);
@@ -67,7 +80,7 @@ export const Registration = () => {
             labelText="Name"
             value={formValues?.name}
             onChange={handleInputChange}
-            error={formTouched && formErrors?.name}
+            error={formErrors?.name}
           />
 
           <Input
@@ -77,7 +90,7 @@ export const Registration = () => {
             labelText="Email"
             value={formValues?.email}
             onChange={handleInputChange}
-            error={formTouched && formErrors?.email}
+            error={formErrors?.email}
           />
 
           <Input
@@ -87,7 +100,7 @@ export const Registration = () => {
             labelText="Password"
             value={formValues?.password}
             onChange={handleInputChange}
-            error={formTouched && formErrors?.password}
+            error={formErrors?.password}
           />
 
           <Button

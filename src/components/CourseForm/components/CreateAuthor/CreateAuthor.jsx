@@ -24,6 +24,7 @@ export const CreateAuthor = ({ createAuthor }) => {
           createAuthor({ name: authorName, id: new Date().getTime() });
         }}
         data-testid="createAuthorButton"
+        type="button"
       />
     </div>
   );

@@ -50,7 +50,7 @@ import styles from "./styles.module.css";
 
 import { Button, Input } from "../../common";
 import { getCourseDuration } from "../../helpers";
-import { BUTTON_CAPTIONS, mockedAuthorsList } from "../../constants";
+import { BUTTON_CAPTIONS } from "../../constants";
 import { AuthorItem, CreateAuthor } from "./components";
 
 export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
@@ -62,25 +62,21 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
   });
 
   const [formErrors, setFormErrors] = useState({
-    title: true,
-    description: true,
-    duration: true,
+    title: false,
+    description: false,
+    duration: false,
   });
-
-  const [formTouched, setFormTouched] = useState(false);
-
-  const [authors, setAuthors] = useState([
-    ...(authorsList || mockedAuthorsList),
-  ]);
 
   const handleInputChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
-    setFormErrors({ ...formErrors, [event.target.name]: !event.target.value });
-    setFormTouched(true);
+    setFormErrors({
+      ...formErrors,
+      [event.target.name]: formErrors[event.target.name] && !event.target.value,
+    });
   };
 
   const getAuthorItems = () => {
-    return (authors || [])
+    return authorsList
       .filter((a) => !(formValues.authors || []).includes(a.id))
       .map((author, i) => (
         <AuthorItem
@@ -102,7 +98,7 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
   const getCourseAuthorItems = () => {
     return (formValues.authors || []).map((authorId, i) => (
       <AuthorItem
-        author={authors.find((a) => a.id === authorId)}
+        author={authorsList.find((a) => a.id === authorId)}
         key={i}
         removeAuthor={(event) => {
           event.preventDefault();
@@ -117,16 +113,24 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
     ));
   };
 
-  const onCreateAuthor = async (author) => {
-    setAuthors([...authors, author]);
+  const validate = () => {
+    const errors = {
+      title: !formValues?.title || formValues?.title?.length < 2,
+      description: !formValues?.description || formValues?.description?.length < 2,
+      duration: !formValues?.duration,
+    };
+
+    setFormErrors(errors);
+
+    // Return immediately, not wait for state..
+    return errors;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setFormTouched(true);
-
-    const hasErrors = Object.values(formErrors).some((error) => !!error);
+    const errors = validate();
+    const hasErrors = Object.values(errors).some((error) => !!error);
 
     if (!hasErrors) {
       createCourse();
@@ -137,7 +141,6 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
     <div className={styles.container}>
       <h2>Course edit/Create page</h2>
 
-      <pre>{formValues.authors}</pre>
       <form onSubmit={handleSubmit}>
         <Input
           name="title"
@@ -146,7 +149,7 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
           data-testid="titleInput"
           value={formValues.title}
           onChange={handleInputChange}
-          error={formTouched && formErrors.title}
+          error={formErrors.title}
         />
 
         <label>
@@ -158,7 +161,7 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
             onChange={handleInputChange}
             data-testid="descriptionTextArea"
           />
-          {formTouched && formErrors.description && (
+          {formErrors.description && (
             <p className={styles.validationError}>Description is required.</p>
           )}
         </label>
@@ -172,14 +175,14 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
                 data-testid="durationInput"
                 value={formValues.duration}
                 onChange={handleInputChange}
-                error={formTouched && formErrors.duration}
+                error={formErrors.duration}
               />
 
               <p>{getCourseDuration(formValues.duration)}</p>
             </div>
             <h2>Authors</h2>
 
-            <CreateAuthor onCreateAuthor={onCreateAuthor}></CreateAuthor>
+            <CreateAuthor createAuthor={createAuthor}></CreateAuthor>
             <div className={styles.authorsContainer}>
               <h3>Authors List</h3>
               {getAuthorItems()}
@@ -195,16 +198,16 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
             )}
           </div>
         </div>
-      </form>
 
-      <div className={styles.buttonsContainer}>
-        <Button buttonText={BUTTON_CAPTIONS.cancel} />
-        <Button
-          buttonText={BUTTON_CAPTIONS.createCourse}
-          handleClick={handleSubmit}
-          data-testid="createCourseButton"
-        />
-      </div>
+        <div className={styles.buttonsContainer}>
+          <Button buttonText={BUTTON_CAPTIONS.cancel} />
+          <Button
+            buttonText={BUTTON_CAPTIONS.createCourse}
+            data-testid="createCourseButton"
+            type="submit"
+          />
+        </div>
+      </form>
     </div>
   );
 };

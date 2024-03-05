@@ -31,27 +31,35 @@ export const Login = () => {
     password: "",
   });
   const [formErrors, setFormErrors] = useState({
-    email: true,
-    password: true,
+    email: false,
+    password: false,
   });
-  const [formTouched, setFormTouched] = useState(false);
 
   const handleInputChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
-    setFormErrors({ ...formErrors, [event.target.name]: !event.target.value });
-    setFormTouched(true);
+    setFormErrors({
+      ...formErrors,
+      [event.target.name]: formErrors[event.target.name] && !event.target.value,
+    });
+  };
+
+  const validate = () => {
+    const errors = {
+      email: !formValues?.email,
+      password: !formValues?.password,
+    };
+
+    setFormErrors(errors);
+
+    // Return immediately, not wait for state..
+    return errors;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setFormTouched(true);
-
-    setFormErrors(
-      Object.fromEntries(Object.entries(formValues).map(([k, v]) => [k, !v]))
-    );
-
-    const hasErrors = Object.values(formErrors).some((error) => !!error);
+    const errors = validate();
+    const hasErrors = Object.values(errors).some((error) => !!error);
 
     if (!hasErrors) {
       const response = await login(formValues);
@@ -77,7 +85,7 @@ export const Login = () => {
             labelText="Email"
             value={formValues?.email}
             onChange={handleInputChange}
-            error={formTouched && formErrors?.email}
+            error={formErrors?.email}
           />
 
           <Input
@@ -87,7 +95,7 @@ export const Login = () => {
             labelText="Password"
             value={formValues?.password}
             onChange={handleInputChange}
-            error={formTouched && formErrors?.password}
+            error={formErrors?.password}
           />
 
           <Button

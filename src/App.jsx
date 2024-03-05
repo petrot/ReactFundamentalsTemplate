@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import styles from "./App.module.css";
@@ -39,8 +39,12 @@ function App() {
   const location = useLocation();
   const isCalledRef = useRef(false);
 
-  const coursesList = mockedCoursesList;
-  const authorsList = mockedAuthorsList;
+  const [coursesList, setCoursesList] = useState(mockedCoursesList);
+  const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
+
+  const createAuthor = (author) => {
+    setAuthorsList([...authorsList, author]);
+  };
 
   useEffect(() => {
     if (!isCalledRef.current) {
@@ -65,14 +69,31 @@ function App() {
           <Route
             path="courses"
             element={
-              <Courses coursesList={coursesList} authorsList={authorsList} />
+              <Courses
+                coursesList={coursesList || []}
+                authorsList={authorsList || []}
+              />
             }
           ></Route>
-          <Route path="courses/add" element={<CourseForm />} />
+          <Route
+            path="courses/add"
+            element={
+              <CourseForm
+                authorsList={authorsList}
+                createCourse={() => {
+                  console.log("CREATE COURSE CALLED");
+                }}
+                createAuthor={createAuthor}
+              />
+            }
+          />
           <Route
             path="courses/:courseId"
             element={
-              <CourseInfo coursesList={coursesList} authorsList={authorsList} />
+              <CourseInfo
+                coursesList={coursesList || []}
+                authorsList={authorsList || []}
+              />
             }
           />
           <Route path="login" element={<Login />} />
