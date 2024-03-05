@@ -54,6 +54,7 @@ export const Courses = () => {
         handleShowCourse={() =>
           navigate("/courses/" + course.id, { replace: true })
         }
+        data-testid="courseCard"
         authorsList={course.authors.map((authorId) =>
           authorsList.find((author) => author.id === authorId)
         )}

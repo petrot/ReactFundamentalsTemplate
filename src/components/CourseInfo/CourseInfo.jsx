@@ -28,16 +28,12 @@ import { formatCreationDate, getCourseDuration } from "../../helpers";
 
 import styles from "./styles.module.css";
 import { Link, useParams } from "react-router-dom";
-import { mockedAuthorsList, mockedCoursesList } from "../../constants";
 
 // props description
 // * 'coursesList' - list of all courses. You need it to get chosen course from the list
 // * 'authorsList' - list of all authors. You need it to get authors' names for chosen course
 // * 'showCourseId' - id of chosen course. Use it to find needed course on the 'coursesList'.
-export const CourseInfo = () => {
-  const coursesList = mockedCoursesList;
-  const authorsList = mockedAuthorsList;
-
+export const CourseInfo = ({ coursesList, authorsList }) => {
   const params = useParams();
   const course = coursesList.find((c) => c.id === params.courseId);
 
@@ -77,7 +73,7 @@ export const CourseInfo = () => {
       </div>
       <div className={styles.backButton}>
         <Link className={styles.back} to={`/courses`}>
-          Back
+          BACK
         </Link>
       </div>
     </div>

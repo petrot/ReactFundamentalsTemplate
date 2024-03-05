@@ -26,18 +26,22 @@ export const Registration = () => {
     password: "",
   });
   const [formErrors, setFormErrors] = useState({
-    name: false,
-    email: false,
-    password: false,
+    name: true,
+    email: true,
+    password: true,
   });
+  const [formTouched, setFormTouched] = useState(false);
 
   const handleInputChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
     setFormErrors({ ...formErrors, [event.target.name]: !event.target.value });
+    setFormTouched(true);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    setFormTouched(true);
 
     const hasErrors = Object.values(formErrors).some((error) => !!error);
 
@@ -64,7 +68,7 @@ export const Registration = () => {
             labelText="Name"
             value={formValues?.name}
             onChange={handleInputChange}
-            error={formErrors?.name}
+            error={formTouched && formErrors?.name}
           />
 
           <Input
@@ -75,7 +79,7 @@ export const Registration = () => {
             labelText="Email"
             value={formValues?.email}
             onChange={handleInputChange}
-            error={formErrors?.email}
+            error={formTouched && formErrors?.email}
           />
 
           <Input
@@ -86,7 +90,7 @@ export const Registration = () => {
             labelText="Password"
             value={formValues?.password}
             onChange={handleInputChange}
-            error={formErrors?.password}
+            error={formTouched && formErrors?.password}
           />
 
           <Button

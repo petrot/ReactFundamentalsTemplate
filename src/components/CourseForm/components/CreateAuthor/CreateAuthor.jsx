@@ -3,7 +3,7 @@ import { Button, Input } from "../../../../common";
 import { BUTTON_CAPTIONS } from "../../../../constants";
 import { useState } from "react";
 
-export const CreateAuthor = ({ onCreateAuthor }) => {
+export const CreateAuthor = ({ createAuthor }) => {
   const [authorName, setAuthorName] = useState("");
 
   return (
@@ -21,7 +21,7 @@ export const CreateAuthor = ({ onCreateAuthor }) => {
         buttonText={BUTTON_CAPTIONS.createAuthor}
         handleClick={() => {
           setAuthorName("");
-          onCreateAuthor({ name: authorName, id: new Date().getTime() });
+          createAuthor({ name: authorName, id: new Date().getTime() });
         }}
         data-testid="createAuthorButton"
       />

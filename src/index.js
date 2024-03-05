@@ -11,8 +11,12 @@ import {
   Registration,
 } from "./components";
 import "./index.css";
+import { mockedAuthorsList, mockedCoursesList } from "./constants";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const coursesList = mockedCoursesList;
+const authorsList = mockedAuthorsList;
 
 root.render(
   <BrowserRouter>
@@ -20,7 +24,12 @@ root.render(
       <Route path="/" element={<App />}>
         <Route path="courses" element={<Courses />}></Route>
         <Route path="courses/add" element={<CourseForm />} />
-        <Route path="courses/:courseId" element={<CourseInfo />} />
+        <Route
+          path="courses/:courseId"
+          element={
+            <CourseInfo coursesList={coursesList} authorsList={authorsList} />
+          }
+        />
         <Route path="login" element={<Login />} />
         <Route path="registration" element={<Registration />} />
       </Route>

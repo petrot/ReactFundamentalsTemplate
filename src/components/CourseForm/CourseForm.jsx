@@ -52,10 +52,8 @@ import { Button, Input } from "../../common";
 import { getCourseDuration } from "../../helpers";
 import { BUTTON_CAPTIONS, mockedAuthorsList } from "../../constants";
 import { AuthorItem, CreateAuthor } from "./components";
-import { useNavigate } from "react-router-dom";
 
 export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
-  const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
     title: "",
     description: "",
@@ -64,10 +62,12 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
   });
 
   const [formErrors, setFormErrors] = useState({
-    title: false,
-    description: false,
-    duration: false,
+    title: true,
+    description: true,
+    duration: true,
   });
+
+  const [formTouched, setFormTouched] = useState(false);
 
   const [authors, setAuthors] = useState([
     ...(authorsList || mockedAuthorsList),
@@ -76,6 +76,7 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
   const handleInputChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
     setFormErrors({ ...formErrors, [event.target.name]: !event.target.value });
+    setFormTouched(true);
   };
 
   const getAuthorItems = () => {
@@ -123,10 +124,12 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    setFormTouched(true);
+
     const hasErrors = Object.values(formErrors).some((error) => !!error);
 
     if (!hasErrors) {
-      navigate("/courses", { replace: true });
+      createCourse();
     }
   };
 
@@ -144,7 +147,7 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
           data-testid="titleInput"
           value={formValues.title}
           onChange={handleInputChange}
-          error={formErrors.title}
+          error={formTouched && formErrors.title}
         />
 
         <label>
@@ -156,7 +159,7 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
             onChange={handleInputChange}
             data-testid="descriptionTextArea"
           />
-          {formErrors.description && (
+          {formTouched && formErrors.description && (
             <p className={styles.validationError}>Description is required.</p>
           )}
         </label>
@@ -171,7 +174,7 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
                 data-testid="durationInput"
                 value={formValues.duration}
                 onChange={handleInputChange}
-                error={formErrors.duration}
+                error={formTouched && formErrors.duration}
               />
 
               <p>{getCourseDuration(formValues.duration)}</p>
@@ -201,6 +204,7 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
         <Button
           buttonText={BUTTON_CAPTIONS.createCourse}
           handleClick={handleSubmit}
+          data-testid="createCourseButton"
         />
       </div>
     </div>

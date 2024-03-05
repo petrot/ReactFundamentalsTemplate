@@ -31,17 +31,21 @@ export const Login = () => {
     password: "",
   });
   const [formErrors, setFormErrors] = useState({
-    email: false,
-    password: false,
+    email: true,
+    password: true,
   });
+  const [formTouched, setFormTouched] = useState(false);
 
   const handleInputChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
     setFormErrors({ ...formErrors, [event.target.name]: !event.target.value });
+    setFormTouched(true);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    setFormTouched(true);
 
     setFormErrors(
       Object.fromEntries(Object.entries(formValues).map(([k, v]) => [k, !v]))
@@ -74,7 +78,7 @@ export const Login = () => {
             labelText="Email"
             value={formValues?.email}
             onChange={handleInputChange}
-            error={formErrors?.email}
+            error={formTouched && formErrors?.email}
           />
 
           <Input
@@ -85,7 +89,7 @@ export const Login = () => {
             labelText="Password"
             value={formValues?.password}
             onChange={handleInputChange}
-            error={formErrors?.password}
+            error={formTouched && formErrors?.password}
           />
 
           <Button
@@ -94,7 +98,7 @@ export const Login = () => {
           />
         </form>
         <p>
-          If you don't have an account you may&nbsp;
+          If you don't have an account you can&nbsp;
           <Link className={styles.registration} to={`/registration`}>
             Registration
           </Link>

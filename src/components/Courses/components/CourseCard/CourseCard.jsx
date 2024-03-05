@@ -68,7 +68,7 @@ export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
           <span>{formatCreationDate(course.creationDate)}</span>
         </p>
         <div className={styles.buttonsContainer}>
-          <Button buttonText="Show course" handleClick={handleShowCourse} />
+          <Button buttonText="SHOW COURSE" handleClick={handleShowCourse} />
           <Button
             data-testid="deleteCourse"
             buttonText={<img src={deleteIcon} alt="delete" />}

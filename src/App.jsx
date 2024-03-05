@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styles from "./App.module.css";
@@ -29,12 +29,18 @@ import { Header } from "./components";
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
+  const isCalledRef = useRef(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    if (!isCalledRef.current) {
+      isCalledRef.current = true;
+      const token = localStorage.getItem("token");
 
-    if (token && location.pathname === "/") {
-      navigate("/courses", { replace: true });
+      if (token && location.pathname === "/") {
+        navigate("/courses", { replace: true });
+      } else if (!token && location.pathname !== "/registration") {
+        navigate("/login", { replace: true });
+      }
     }
   }, [navigate, location]);
 
