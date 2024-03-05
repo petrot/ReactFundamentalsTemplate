@@ -72,9 +72,9 @@ export const Login = () => {
             className={styles.filterInput}
             placeholderText="Input text"
             labelText="Email"
-            value={formValues.email}
+            value={formValues?.email}
             onChange={handleInputChange}
-            error={formErrors.email}
+            error={formErrors?.email}
           />
 
           <Input
@@ -83,9 +83,9 @@ export const Login = () => {
             className={styles.filterInput}
             placeholderText="Input text"
             labelText="Password"
-            value={formValues.password}
+            value={formValues?.password}
             onChange={handleInputChange}
-            error={formErrors.password}
+            error={formErrors?.password}
           />
 
           <Button

@@ -62,9 +62,9 @@ export const Registration = () => {
             className={styles.filterInput}
             placeholderText="Input text"
             labelText="Name"
-            value={formValues.name}
+            value={formValues?.name}
             onChange={handleInputChange}
-            error={formErrors.name}
+            error={formErrors?.name}
           />
 
           <Input
@@ -73,9 +73,9 @@ export const Registration = () => {
             className={styles.filterInput}
             placeholderText="Input text"
             labelText="Email"
-            value={formValues.email}
+            value={formValues?.email}
             onChange={handleInputChange}
-            error={formErrors.email}
+            error={formErrors?.email}
           />
 
           <Input
@@ -84,9 +84,9 @@ export const Registration = () => {
             className={styles.filterInput}
             placeholderText="Input text"
             labelText="Password"
-            value={formValues.password}
+            value={formValues?.password}
             onChange={handleInputChange}
-            error={formErrors.password}
+            error={formErrors?.password}
           />
 
           <Button
