@@ -116,7 +116,8 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
   const validate = () => {
     const errors = {
       title: !formValues?.title || formValues?.title?.length < 2,
-      description: !formValues?.description || formValues?.description?.length < 2,
+      description:
+        !formValues?.description || formValues?.description?.length < 2,
       duration: !formValues?.duration,
     };
 
