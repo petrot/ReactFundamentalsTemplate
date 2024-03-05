@@ -77,7 +77,7 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
 
   const getAuthorItems = () => {
     return authorsList
-      .filter((a) => !(formValues.authors || []).includes(a.id))
+      ?.filter((a) => !(formValues.authors || []).includes(a.id))
       .map((author, i) => (
         <AuthorItem
           author={author}
@@ -98,7 +98,7 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
   const getCourseAuthorItems = () => {
     return (formValues.authors || []).map((authorId, i) => (
       <AuthorItem
-        author={authorsList.find((a) => a.id === authorId)}
+        author={authorsList?.find((a) => a.id === authorId)}
         key={i}
         removeAuthor={(event) => {
           event.preventDefault();

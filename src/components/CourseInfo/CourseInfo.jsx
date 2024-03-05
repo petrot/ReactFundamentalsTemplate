@@ -35,7 +35,7 @@ import { Link, useParams } from "react-router-dom";
 // * 'showCourseId' - id of chosen course. Use it to find needed course on the 'coursesList'.
 export const CourseInfo = ({ coursesList, authorsList }) => {
   const params = useParams();
-  const course = coursesList.find((c) => c.id === params.courseId);
+  const course = coursesList?.find((c) => c.id === params.courseId);
 
   return (
     <div className={styles.container} data-testid="courseInfo">
@@ -60,7 +60,7 @@ export const CourseInfo = ({ coursesList, authorsList }) => {
             <ul className={styles.authorsList}>
               {course.authors.map((authorId) =>
                 authorsList
-                  .filter((author) => author.id === authorId)
+                  ?.filter((author) => author.id === authorId)
                   .map((author, idx) => (
                     <li key={idx} className={styles.authorsList}>
                       {author.name}

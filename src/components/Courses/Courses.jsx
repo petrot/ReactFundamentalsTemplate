@@ -49,7 +49,7 @@ export const Courses = ({ coursesList, authorsList }) => {
         }
         data-testid="courseCard"
         authorsList={course.authors.map((authorId) =>
-          authorsList.find((author) => author.id === authorId)
+          authorsList?.find((author) => author.id === authorId)
         )}
       ></CourseCard>
     ));
@@ -64,7 +64,7 @@ export const Courses = ({ coursesList, authorsList }) => {
     setFilteredCourseItems(
       getFilteredCourseItems(
         filter
-          ? coursesList.filter(
+          ? coursesList?.filter(
               (c) =>
                 c.title.toString().includes(filter) ||
                 c.id.toString().includes(filter)

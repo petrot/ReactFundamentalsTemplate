@@ -79,7 +79,7 @@ function App() {
             path="courses/add"
             element={
               <CourseForm
-                authorsList={authorsList}
+                authorsList={authorsList || []}
                 createCourse={() => {
                   console.log("CREATE COURSE CALLED");
                 }}
