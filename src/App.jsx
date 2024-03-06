@@ -12,7 +12,8 @@ import {
 } from "./components";
 import { useDispatch } from "react-redux";
 import { getAuthors, getCourses } from "./services";
-import { setCourses } from "./store/slices/coursesSlice";
+import { saveCourse, setCourses } from "./store/slices/coursesSlice";
+import { saveAuthor, setAuthors } from "./store/slices/authorsSlice";
 
 // Module 1:
 // * use mockedAuthorsList and mockedCoursesList mocked data
@@ -59,7 +60,7 @@ function App() {
       dispatch(setCourses(c.successful ? c.result : []));
 
       const a = await getAuthors();
-      dispatch(setCourses(a.successful ? a.result : []));
+      dispatch(setAuthors(a.successful ? a.result : []));
     };
 
     fetchInitData();
@@ -76,11 +77,11 @@ function App() {
             path="courses/add"
             element={
               <CourseForm
-                createCourse={() => {
-                  console.log("CREATE COURSE CALLED");
+                createCourse={(data) => {
+                  dispatch(saveCourse(data));
                 }}
-                createAuthor={() => {
-                  console.error("TODO createAuthor");
+                createAuthor={(data) => {
+                  dispatch(saveAuthor(data));
                 }}
               />
             }

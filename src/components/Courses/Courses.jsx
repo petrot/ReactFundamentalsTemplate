@@ -6,6 +6,8 @@ import { Button, Input } from "../../common";
 import { BUTTON_CAPTIONS } from "../../constants";
 import { EmptyCourseList } from "../EmptyCourseList";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getAuthorsSelector, getCoursesSelector } from "../../store/selectors";
 
 // Module 1:
 // * render list of components using 'CourseCard' component for each course
@@ -39,43 +41,38 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 export const Courses = () => {
   const navigate = useNavigate();
 
-  const coursesList = []; // TODO
-  const authorsList = []; // TODO
+  const coursesList = useSelector(getCoursesSelector);
+  const authorsList = useSelector(getAuthorsSelector);
 
-  const getFilteredCourseItems = (courses) => {
-    return courses?.map((course, i) => (
-      <CourseCard
-        course={course}
-        key={i}
-        handleShowCourse={() =>
-          navigate("/courses/" + course.id, { replace: true })
-        }
-        data-testid="courseCard"
-        authorsList={course.authors.map((authorId) =>
-          authorsList?.find((author) => author.id === authorId)
-        )}
-      ></CourseCard>
-    ));
+  const getCourseItems = () => {
+    return coursesList
+      ?.filter((c) =>
+        filter
+          ? c.title.toString().includes(filter) ||
+            c.id.toString().includes(filter)
+          : true
+      )
+      .map((course, i) => {
+        console.error("MAP course", course);
+        return (
+          <CourseCard
+            course={course}
+            key={i}
+            handleShowCourse={() =>
+              navigate("/courses/" + course.id, { replace: true })
+            }
+            data-testid="courseCard"
+            authorsList={course.authors.map((authorId) =>
+              authorsList?.find((author) => author.id === authorId)
+            )}
+          ></CourseCard>
+        );
+      });
   };
 
   const [filter, setFilter] = useState("");
-  const [filteredCourseItems, setFilteredCourseItems] = useState(
-    getFilteredCourseItems(coursesList)
-  );
 
-  const onSearchClick = () => {
-    setFilteredCourseItems(
-      getFilteredCourseItems(
-        filter
-          ? coursesList?.filter(
-              (c) =>
-                c.title.toString().includes(filter) ||
-                c.id.toString().includes(filter)
-            )
-          : coursesList
-      )
-    );
-  };
+  const onSearchClick = () => {};
 
   return coursesList?.length > 0 ? (
     <>
@@ -105,7 +102,7 @@ export const Courses = () => {
           />
         </div>
       </div>
-      {filteredCourseItems}
+      {getCourseItems()}
       <Outlet />
     </>
   ) : (

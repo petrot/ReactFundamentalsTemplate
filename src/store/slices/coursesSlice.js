@@ -9,8 +9,12 @@ export const coursesSlice = createSlice({
     setCourses: (state, { payload }) => {
       return payload;
     },
-    // saveCourse:
-    // deleteCourse:
+    saveCourse: (state, { payload }) => {
+      return [...state, payload];
+    },
+    deleteCourse: (state, { payload }) => {
+      return state.filter((c) => c.id !== payload);
+    },
     // updateCourse:
   },
 });

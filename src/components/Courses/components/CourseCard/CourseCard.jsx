@@ -30,8 +30,6 @@
 //   ** CourseCard should display authors list.
 //   ** CourseCard should display created date in the correct format.
 
-import React from "react";
-
 import { getCourseDuration, formatCreationDate } from "../../../../helpers";
 
 import deleteIcon from "../../../../assets/deleteButtonIcon.svg";
@@ -39,10 +37,14 @@ import editIcon from "../../../../assets/editButtonIcon.svg";
 
 import styles from "./styles.module.css";
 import { Button } from "../../../../common";
+import { useDispatch } from "react-redux";
+import { deleteCourse } from "../../../../store/slices/coursesSlice";
 
 export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
+  const dispatch = useDispatch();
+
   const onDeleteButtonClick = () => {
-    console.error("Delete clicked on ", course.id);
+    dispatch(deleteCourse(course.id));
   };
   const onUpdateButtonClick = () => {
     console.error("Update clicked on ", course.id);
@@ -57,7 +59,7 @@ export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
       <div className={styles.cardDetails}>
         <p>
           <b>Authors: </b>
-          {authorsList.map((author) => author.name).join(", ")}
+          {authorsList.map((author) => author?.name).join(", ")}
         </p>
         <p>
           <b>Duration:</b>

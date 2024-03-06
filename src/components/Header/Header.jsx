@@ -3,6 +3,9 @@ import { Button } from "../../common";
 import { BUTTON_CAPTIONS } from "../../constants";
 import { Logo } from "./components";
 import styles from "./styles.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUserData } from "../../store/slices/userSlice";
+import { getUserSelector } from "../../store/selectors";
 
 // Module 1:
 // * add Logo and Button components
@@ -35,12 +38,13 @@ import styles from "./styles.module.css";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const localUser = JSON.parse(localStorage.getItem("user")) || {};
-  const token = localStorage.getItem("token");
+  const user = useSelector(getUserSelector);
+  const dispatch = useDispatch();
 
   const onLogoutClick = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    dispatch(removeUserData());
 
     navigate("/login", { replace: true });
   };
@@ -50,8 +54,8 @@ export const Header = () => {
       <Logo />
 
       <div className={styles.userContainer}>
-        <p className={styles.userName}>{localUser?.name}</p>
-        {token ? (
+        <p className={styles.userName}>{user?.name}</p>
+        {user.token ? (
           <Button
             buttonText={BUTTON_CAPTIONS.logout}
             handleClick={onLogoutClick}

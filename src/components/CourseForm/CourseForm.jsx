@@ -52,6 +52,8 @@ import { Button, Input } from "../../common";
 import { getCourseDuration } from "../../helpers";
 import { BUTTON_CAPTIONS } from "../../constants";
 import { AuthorItem, CreateAuthor } from "./components";
+import { useSelector } from "react-redux";
+import { getAuthorsSelector } from "../../store/selectors";
 
 export const CourseForm = ({ createCourse, createAuthor }) => {
   const [formValues, setFormValues] = useState({
@@ -67,7 +69,7 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
     duration: false,
   });
 
-  const authorsList = []; // TODO
+  const authorsList = useSelector(getAuthorsSelector);
 
   const handleInputChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
@@ -135,7 +137,7 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
     const hasErrors = Object.values(errors).some((error) => !!error);
 
     if (!hasErrors) {
-      createCourse();
+      createCourse(formValues);
     }
   };
 
