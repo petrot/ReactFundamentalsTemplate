@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
-
-import styles from "./styles.module.css";
-import { Logo } from "./components";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../common";
 import { BUTTON_CAPTIONS } from "../../constants";
-import { useNavigate } from "react-router-dom";
+import { Logo } from "./components";
+import styles from "./styles.module.css";
 
 // Module 1:
 // * add Logo and Button components
@@ -37,21 +35,11 @@ import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const navigate = useNavigate();
-
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    const localUser = localStorage.getItem("user");
-
-    if (localUser) {
-      setUser(JSON.parse(localUser));
-    }
-  }, []);
+  const localUser = JSON.parse(localStorage.getItem("user")) || {};
 
   const onLogoutClick = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setUser(undefined);
 
     navigate("/login", { replace: true });
   };
@@ -61,8 +49,8 @@ export const Header = () => {
       <Logo />
 
       <div className={styles.userContainer}>
-        <p className={styles.userName}>{user?.name}</p>
-        {user?.name ? (
+        <p className={styles.userName}>{localUser?.name}</p>
+        {localUser?.name ? (
           <Button
             buttonText={BUTTON_CAPTIONS.logout}
             handleClick={onLogoutClick}

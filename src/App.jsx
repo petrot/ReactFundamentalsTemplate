@@ -54,9 +54,6 @@ function App() {
       if (token && location.pathname === "/") {
         navigate("/courses", { replace: true });
       }
-      /* else if (!token && location.pathname !== "/registration") {
-        navigate("/login", { replace: true });
-      }*/
     }
   }, [navigate, location]);
 
