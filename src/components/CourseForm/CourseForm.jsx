@@ -53,7 +53,7 @@ import { getCourseDuration } from "../../helpers";
 import { BUTTON_CAPTIONS } from "../../constants";
 import { AuthorItem, CreateAuthor } from "./components";
 
-export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
+export const CourseForm = ({ createCourse, createAuthor }) => {
   const [formValues, setFormValues] = useState({
     title: "",
     description: "",
@@ -66,6 +66,8 @@ export const CourseForm = ({ authorsList, createCourse, createAuthor }) => {
     description: false,
     duration: false,
   });
+
+  const authorsList = []; // TODO
 
   const handleInputChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });

@@ -22,9 +22,12 @@ import { useState } from "react";
 import { Button, Input } from "../../common";
 import { BUTTON_CAPTIONS } from "../../constants";
 import { login } from "../../services";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../../store/slices/userSlice";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [formValues, setFormValues] = useState({
     email: "",
@@ -66,7 +69,13 @@ export const Login = () => {
       localStorage.setItem("token", response?.result);
 
       if (response?.successful) {
-        localStorage.setItem("user", JSON.stringify(response?.user));
+        dispatch(
+          setUserData({
+            isAuth: true,
+            token: response.result,
+            ...response.user,
+          })
+        );
 
         navigate("/courses", { replace: true });
       }

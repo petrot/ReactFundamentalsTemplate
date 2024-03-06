@@ -36,8 +36,11 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 //   ** Courses should display amount of CourseCard equal length of courses array.
 //   ** CourseForm should be shown after a click on the "Add new course" button.
 
-export const Courses = ({ coursesList, authorsList }) => {
+export const Courses = () => {
   const navigate = useNavigate();
+
+  const coursesList = []; // TODO
+  const authorsList = []; // TODO
 
   const getFilteredCourseItems = (courses) => {
     return courses?.map((course, i) => (

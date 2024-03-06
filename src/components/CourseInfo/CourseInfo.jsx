@@ -33,8 +33,12 @@ import { Link, useParams } from "react-router-dom";
 // * 'coursesList' - list of all courses. You need it to get chosen course from the list
 // * 'authorsList' - list of all authors. You need it to get authors' names for chosen course
 // * 'showCourseId' - id of chosen course. Use it to find needed course on the 'coursesList'.
-export const CourseInfo = ({ coursesList, authorsList }) => {
+export const CourseInfo = () => {
   const params = useParams();
+
+  const coursesList = []; // TODO
+  const authorsList = []; // TODO
+
   const course = coursesList?.find((c) => c.id === params.courseId);
 
   return (

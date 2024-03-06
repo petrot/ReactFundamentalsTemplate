@@ -6,7 +6,9 @@ export const coursesSlice = createSlice({
   name: "courses",
   initialState,
   reducers: {
-    // setCourses:
+    setCourses: (state, { payload }) => {
+      return payload;
+    },
     // saveCourse:
     // deleteCourse:
     // updateCourse:

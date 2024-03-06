@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import styles from "./App.module.css";
@@ -10,7 +10,9 @@ import {
   Login,
   Registration,
 } from "./components";
-import { mockedAuthorsList, mockedCoursesList } from "./constants";
+import { useDispatch } from "react-redux";
+import { getAuthors, getCourses } from "./services";
+import { setCourses } from "./store/slices/coursesSlice";
 
 // Module 1:
 // * use mockedAuthorsList and mockedCoursesList mocked data
@@ -38,13 +40,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const isCalledRef = useRef(false);
-
-  const [coursesList] = useState(mockedCoursesList);
-  const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
-
-  const createAuthor = (author) => {
-    setAuthorsList([...authorsList, author]);
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isCalledRef.current) {
@@ -57,42 +53,39 @@ function App() {
     }
   }, [navigate, location]);
 
+  useEffect(() => {
+    const fetchInitData = async () => {
+      const c = await getCourses();
+      dispatch(setCourses(c.successful ? c.result : []));
+
+      const a = await getAuthors();
+      dispatch(setCourses(a.successful ? a.result : []));
+    };
+
+    fetchInitData();
+  }, [dispatch]);
+
   return (
     <div className={styles.wrapper}>
       <Header />
 
       <div className={styles.container}>
         <Routes>
-          <Route
-            path="courses"
-            element={
-              <Courses
-                coursesList={coursesList || []}
-                authorsList={authorsList || []}
-              />
-            }
-          ></Route>
+          <Route path="courses" element={<Courses />}></Route>
           <Route
             path="courses/add"
             element={
               <CourseForm
-                authorsList={authorsList || []}
                 createCourse={() => {
                   console.log("CREATE COURSE CALLED");
                 }}
-                createAuthor={createAuthor}
+                createAuthor={() => {
+                  console.error("TODO createAuthor");
+                }}
               />
             }
           />
-          <Route
-            path="courses/:courseId"
-            element={
-              <CourseInfo
-                coursesList={coursesList || []}
-                authorsList={authorsList || []}
-              />
-            }
-          />
+          <Route path="courses/:courseId" element={<CourseInfo />} />
           <Route path="login" element={<Login />} />
           <Route path="registration" element={<Registration />} />
           <Route path="*" element={<Login />} />
