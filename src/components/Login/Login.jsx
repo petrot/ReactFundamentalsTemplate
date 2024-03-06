@@ -63,9 +63,10 @@ export const Login = () => {
     if (!hasErrors) {
       const response = await login(formValues);
 
+      localStorage.setItem("token", JSON.stringify(response?.result));
+
       if (response?.successful) {
-        localStorage.setItem("token", JSON.stringify(response.result));
-        localStorage.setItem("user", JSON.stringify(response.user));
+        localStorage.setItem("user", JSON.stringify(response?.user));
 
         navigate("/courses", { replace: true });
       }
