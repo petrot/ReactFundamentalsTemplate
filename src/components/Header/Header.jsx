@@ -49,8 +49,8 @@ export const Header = () => {
   }, []);
 
   const onLogoutClick = () => {
-    localStorage.setItem("token", "");
-    localStorage.setItem("user", "");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(undefined);
 
     navigate("/login", { replace: true });
