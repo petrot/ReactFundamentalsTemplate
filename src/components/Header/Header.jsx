@@ -36,6 +36,7 @@ import styles from "./styles.module.css";
 export const Header = () => {
   const navigate = useNavigate();
   const localUser = JSON.parse(localStorage.getItem("user")) || {};
+  const token = localStorage.getItem("token");
 
   const onLogoutClick = () => {
     localStorage.removeItem("token");
@@ -50,7 +51,7 @@ export const Header = () => {
 
       <div className={styles.userContainer}>
         <p className={styles.userName}>{localUser?.name}</p>
-        {localUser?.name ? (
+        {token ? (
           <Button
             buttonText={BUTTON_CAPTIONS.logout}
             handleClick={onLogoutClick}
