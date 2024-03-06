@@ -39,7 +39,7 @@ function App() {
   const location = useLocation();
   const isCalledRef = useRef(false);
 
-  const [coursesList, setCoursesList] = useState(mockedCoursesList);
+  const [coursesList] = useState(mockedCoursesList);
   const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
 
   const createAuthor = (author) => {
