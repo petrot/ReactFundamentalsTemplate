@@ -72,8 +72,8 @@ export const Login = () => {
         dispatch(
           setUserData({
             isAuth: true,
-            token: response.result,
-            ...response.user,
+            token: response?.result,
+            ...response?.user,
           })
         );
 
