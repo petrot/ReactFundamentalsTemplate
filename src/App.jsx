@@ -57,10 +57,10 @@ function App() {
   useEffect(() => {
     const fetchInitData = async () => {
       const c = await getCourses();
-      dispatch(setCourses(c.successful ? c.result : []));
+      dispatch(setCourses(c?.successful ? c?.result : []));
 
       const a = await getAuthors();
-      dispatch(setAuthors(a.successful ? a.result : []));
+      dispatch(setAuthors(a?.successful ? a?.result : []));
     };
 
     fetchInitData();
