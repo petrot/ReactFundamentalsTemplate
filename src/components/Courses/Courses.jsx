@@ -48,21 +48,20 @@ export const Courses = () => {
     return coursesList
       ?.filter((c) =>
         filter
-          ? c.title.toString().includes(filter) ||
-            c.id.toString().includes(filter)
+          ? c.title?.toString().includes(filter) ||
+            c.id?.toString().includes(filter)
           : true
       )
       .map((course, i) => {
-        console.error("MAP course", course);
         return (
           <CourseCard
             course={course}
             key={i}
             handleShowCourse={() =>
-              navigate("/courses/" + course.id, { replace: true })
+              navigate("/courses/" + course?.id, { replace: true })
             }
             data-testid="courseCard"
-            authorsList={course.authors.map((authorId) =>
+            authorsList={course?.authors?.map((authorId) =>
               authorsList?.find((author) => author.id === authorId)
             )}
           ></CourseCard>

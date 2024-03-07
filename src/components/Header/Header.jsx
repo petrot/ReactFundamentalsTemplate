@@ -55,7 +55,7 @@ export const Header = () => {
 
       <div className={styles.userContainer}>
         <p className={styles.userName}>{user?.name}</p>
-        {user.token ? (
+        {user?.token ? (
           <Button
             buttonText={BUTTON_CAPTIONS.logout}
             handleClick={onLogoutClick}

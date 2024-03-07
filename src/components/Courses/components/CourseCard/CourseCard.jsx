@@ -46,6 +46,7 @@ export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
   const onDeleteButtonClick = () => {
     dispatch(deleteCourse(course.id));
   };
+
   const onUpdateButtonClick = () => {
     console.error("Update clicked on ", course.id);
   };
@@ -53,21 +54,21 @@ export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
   return (
     <div className={styles.cardContainer} data-testid="courseCard">
       <div className={styles.cardText}>
-        <h2>{course.title}</h2>
-        <p>{course.description}</p>
+        <h2>{course?.title}</h2>
+        <p>{course?.description}</p>
       </div>
       <div className={styles.cardDetails}>
         <p>
           <b>Authors: </b>
-          {authorsList.map((author) => author?.name).join(", ")}
+          {authorsList?.map((author) => author?.name).join(", ")}
         </p>
         <p>
           <b>Duration:</b>
-          <span>{getCourseDuration(course.duration)}</span>
+          <span>{getCourseDuration(course?.duration)}</span>
         </p>
         <p>
           <b>Created: </b>
-          <span>{formatCreationDate(course.creationDate)}</span>
+          <span>{formatCreationDate(course?.creationDate)}</span>
         </p>
         <div className={styles.buttonsContainer}>
           <Button buttonText="SHOW COURSE" handleClick={handleShowCourse} />

@@ -91,7 +91,7 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
 
             setFormValues({
               ...formValues,
-              authors: [...formValues.authors, author.id],
+              authors: [...formValues?.authors, author.id],
             });
           }}
           mode="add"
@@ -109,7 +109,7 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
 
           setFormValues({
             ...formValues,
-            authors: formValues.authors.filter((id) => id !== authorId),
+            authors: formValues?.authors?.filter((id) => id !== authorId),
           });
         }}
         mode="remove"
