@@ -41,7 +41,6 @@ export const Header = () => {
   const dispatch = useDispatch();
 
   const userName = useSelector(getUserNameSelector);
-  // const token = useSelector(getUserTokenSelector);
   const token = localStorage.getItem("token");
 
   const onLogoutClick = () => {
