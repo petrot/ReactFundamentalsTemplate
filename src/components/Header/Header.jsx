@@ -40,6 +40,7 @@ export const Header = () => {
   const navigate = useNavigate();
   const user = useSelector(getUserSelector);
   const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
 
   const onLogoutClick = () => {
     dispatch(removeUserData());
@@ -55,7 +56,7 @@ export const Header = () => {
 
       <div className={styles.userContainer}>
         <p className={styles.userName}>{user?.name}</p>
-        {user?.token ? (
+        {token ? (
           <Button
             buttonText={BUTTON_CAPTIONS.logout}
             handleClick={onLogoutClick}
