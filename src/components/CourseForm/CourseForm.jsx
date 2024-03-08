@@ -55,7 +55,6 @@ import { AuthorItem, CreateAuthor } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuthorsSelector } from "../../store/selectors";
 import { saveCourse } from "../../store/slices/coursesSlice";
-import { saveAuthor } from "../../store/slices/authorsSlice";
 
 export const CourseForm = () => {
   const dispatch = useDispatch();
@@ -141,7 +140,12 @@ export const CourseForm = () => {
     const hasErrors = Object.values(errors).some((error) => !!error);
 
     if (!hasErrors) {
-      dispatch(saveCourse(formValues));
+      dispatch(
+        saveCourse({
+          ...formValues,
+          duration: parseInt(formValues?.duration, 10),
+        })
+      );
     }
   };
 
@@ -178,6 +182,7 @@ export const CourseForm = () => {
             <div className={styles.duration}>
               <Input
                 name="duration"
+                type="number"
                 placeholderText="Input text"
                 labelText="Duration"
                 data-testid="durationInput"
@@ -190,9 +195,7 @@ export const CourseForm = () => {
             </div>
             <h2>Authors</h2>
 
-            <CreateAuthor
-              createAuthor={(data) => dispatch(saveAuthor(data))}
-            ></CreateAuthor>
+            <CreateAuthor />
             <div className={styles.authorsContainer}>
               <h3>Authors List</h3>
               {getAuthorItems()}

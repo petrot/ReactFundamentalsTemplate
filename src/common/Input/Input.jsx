@@ -8,7 +8,7 @@ export const Input = ({
   labelText,
   value,
   name,
-  type,
+  type = "text",
   onChange,
   "data-testid": dataTestId,
   error,
@@ -18,6 +18,7 @@ export const Input = ({
       {labelText}
       <input
         name={name}
+        type={type}
         value={value}
         onChange={onChange}
         placeholder={placeholderText}

@@ -2,8 +2,12 @@ import styles from "./styles.module.css";
 import { Button, Input } from "../../../../common";
 import { BUTTON_CAPTIONS } from "../../../../constants";
 import { useState } from "react";
+import { saveAuthor } from "../../../../store/slices/authorsSlice";
+import { useDispatch } from "react-redux";
 
-export const CreateAuthor = ({ createAuthor }) => {
+export const CreateAuthor = () => {
+  const dispatch = useDispatch();
+
   const [authorName, setAuthorName] = useState("");
 
   return (
@@ -21,7 +25,8 @@ export const CreateAuthor = ({ createAuthor }) => {
         buttonText={BUTTON_CAPTIONS.createAuthor}
         handleClick={() => {
           setAuthorName("");
-          createAuthor({ name: authorName, id: new Date().getTime() });
+
+          dispatch(saveAuthor({ name: authorName, id: new Date().getTime() }));
         }}
         data-testid="createAuthorButton"
         type="button"
