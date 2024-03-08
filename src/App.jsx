@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 
+import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import styles from "./App.module.css";
 import {
@@ -10,10 +11,9 @@ import {
   Login,
   Registration,
 } from "./components";
-import { useDispatch } from "react-redux";
 import { getAuthors, getCourses } from "./services";
-import { saveCourse, setCourses } from "./store/slices/coursesSlice";
-import { saveAuthor, setAuthors } from "./store/slices/authorsSlice";
+import { setAuthors } from "./store/slices/authorsSlice";
+import { setCourses } from "./store/slices/coursesSlice";
 
 // Module 1:
 // * use mockedAuthorsList and mockedCoursesList mocked data
@@ -73,19 +73,7 @@ function App() {
       <div className={styles.container}>
         <Routes>
           <Route path="courses" element={<Courses />}></Route>
-          <Route
-            path="courses/add"
-            element={
-              <CourseForm
-                createCourse={(data) => {
-                  dispatch(saveCourse(data));
-                }}
-                createAuthor={(data) => {
-                  dispatch(saveAuthor(data));
-                }}
-              />
-            }
-          />
+          <Route path="courses/add" element={<CourseForm />} />
           <Route path="courses/:courseId" element={<CourseInfo />} />
           <Route path="login" element={<Login />} />
           <Route path="registration" element={<Registration />} />

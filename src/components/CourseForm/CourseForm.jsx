@@ -52,10 +52,14 @@ import { Button, Input } from "../../common";
 import { getCourseDuration } from "../../helpers";
 import { BUTTON_CAPTIONS } from "../../constants";
 import { AuthorItem, CreateAuthor } from "./components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAuthorsSelector } from "../../store/selectors";
+import { saveCourse } from "../../store/slices/coursesSlice";
+import { saveAuthor } from "../../store/slices/authorsSlice";
 
-export const CourseForm = ({ createCourse, createAuthor }) => {
+export const CourseForm = () => {
+  const dispatch = useDispatch();
+
   const [formValues, setFormValues] = useState({
     title: "",
     description: "",
@@ -137,7 +141,7 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
     const hasErrors = Object.values(errors).some((error) => !!error);
 
     if (!hasErrors) {
-      createCourse(formValues);
+      dispatch(saveCourse(formValues));
     }
   };
 
@@ -186,7 +190,9 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
             </div>
             <h2>Authors</h2>
 
-            <CreateAuthor createAuthor={createAuthor}></CreateAuthor>
+            <CreateAuthor
+              createAuthor={(data) => dispatch(saveAuthor(data))}
+            ></CreateAuthor>
             <div className={styles.authorsContainer}>
               <h3>Authors List</h3>
               {getAuthorItems()}
