@@ -68,17 +68,17 @@ export const Login = () => {
 
       localStorage.setItem("token", response?.result);
 
-      if (response?.successful) {
-        dispatch(
-          setUserData({
-            isAuth: true,
-            token: response?.result,
-            ...response?.user,
-          })
-        );
+      // if (response?.successful) {
+      dispatch(
+        setUserData({
+          isAuth: true,
+          token: response?.result,
+          ...response?.user,
+        })
+      );
 
-        navigate("/courses", { replace: true });
-      }
+      navigate("/courses", { replace: true });
+      // }
     }
   };
 

@@ -149,7 +149,7 @@ export const CourseForm = () => {
     <div className={styles.container}>
       <h2>Course edit/Create page</h2>
 
-      <form onSubmit={handleSubmit}>
+      <form>
         <Input
           name="title"
           placeholderText="Input text"
@@ -215,6 +215,7 @@ export const CourseForm = () => {
             buttonText={BUTTON_CAPTIONS.createCourse}
             data-testid="createCourseButton"
             type="submit"
+            handleClick={handleSubmit}
           />
         </div>
       </form>

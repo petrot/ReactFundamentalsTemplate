@@ -42,9 +42,9 @@ export const Header = () => {
   const dispatch = useDispatch();
 
   const onLogoutClick = () => {
+    dispatch(removeUserData());
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    dispatch(removeUserData());
 
     navigate("/login", { replace: true });
   };

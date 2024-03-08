@@ -79,7 +79,7 @@ export const CourseInfo = () => {
       </div>
       <div className={styles.backButton}>
         <Link className={styles.back} to={`/courses`}>
-          BACK
+          Back
         </Link>
       </div>
     </div>
