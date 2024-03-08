@@ -7,7 +7,7 @@ export const createUser = async (data) => {
     },
   });
 
-  return await response.json();
+  return await response?.json();
 };
 
 export const login = async (data) => {
@@ -19,7 +19,7 @@ export const login = async (data) => {
     },
   });
 
-  return await response.json();
+  return await response?.json();
 };
 
 export const getCourses = async () => {
@@ -30,7 +30,7 @@ export const getCourses = async () => {
     },
   });
 
-  return await response.json();
+  return await response?.json();
 };
 
 export const getAuthors = async () => {
@@ -41,7 +41,7 @@ export const getAuthors = async () => {
     },
   });
 
-  return await response.json();
+  return await response?.json();
 };
 
 export const getCurrentUser = async () => {
