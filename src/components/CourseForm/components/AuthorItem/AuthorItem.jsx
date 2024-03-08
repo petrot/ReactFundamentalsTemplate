@@ -4,7 +4,7 @@ import deleteIcon from "../../../../assets/deleteButtonIcon.svg";
 
 export const AuthorItem = ({ author, addAuthor, removeAuthor, mode }) => (
   <div className={styles.authorItem} data-testid="authorItem">
-    <span>{author.name}</span>
+    <span>{author?.name}</span>
 
     <div className={styles.buttons}>
       {mode === "add" ? (

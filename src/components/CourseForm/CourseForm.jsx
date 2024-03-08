@@ -91,7 +91,7 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
 
             setFormValues({
               ...formValues,
-              authors: [...formValues?.authors, author.id],
+              authors: [...formValues?.authors, author?.id],
             });
           }}
           mode="add"

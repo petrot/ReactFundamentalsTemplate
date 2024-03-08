@@ -62,7 +62,7 @@ export const Courses = () => {
             }
             data-testid="courseCard"
             authorsList={course?.authors?.map((authorId) =>
-              authorsList?.find((author) => author.id === authorId)
+              authorsList?.find((author) => author?.id === authorId)
             )}
           ></CourseCard>
         );

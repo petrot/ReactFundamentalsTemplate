@@ -44,11 +44,11 @@ export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
   const dispatch = useDispatch();
 
   const onDeleteButtonClick = () => {
-    dispatch(deleteCourse(course.id));
+    dispatch(deleteCourse(course?.id));
   };
 
   const onUpdateButtonClick = () => {
-    console.error("Update clicked on ", course.id);
+    console.error("Update clicked on ", course?.id);
   };
 
   return (

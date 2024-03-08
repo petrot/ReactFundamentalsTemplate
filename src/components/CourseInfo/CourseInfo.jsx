@@ -28,6 +28,8 @@ import { formatCreationDate, getCourseDuration } from "../../helpers";
 
 import styles from "./styles.module.css";
 import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getAuthorsSelector, getCoursesSelector } from "../../store/selectors";
 
 // props description
 // * 'coursesList' - list of all courses. You need it to get chosen course from the list
@@ -36,8 +38,8 @@ import { Link, useParams } from "react-router-dom";
 export const CourseInfo = () => {
   const params = useParams();
 
-  const coursesList = []; // TODO
-  const authorsList = []; // TODO
+  const coursesList = useSelector(getCoursesSelector);
+  const authorsList = useSelector(getAuthorsSelector);
 
   const course = coursesList?.find((c) => c.id === params.courseId);
 
@@ -45,29 +47,29 @@ export const CourseInfo = () => {
     <div className={styles.container} data-testid="courseInfo">
       <h1>{course?.title}</h1>
       <div className={styles.courseInfo}>
-        <p className={styles.description}>{course.description}</p>
+        <p className={styles.description}>{course?.description}</p>
         <div>
           <p>
             <b>ID: </b>
-            {course.id}
+            {course?.id}
           </p>
           <p>
             <b>Duration: </b>
-            {getCourseDuration(course.duration)}
+            {getCourseDuration(course?.duration)}
           </p>
           <p>
             <b>Created: </b>
-            {formatCreationDate(course.creationDate)}
+            {formatCreationDate(course?.creationDate)}
           </p>
           <div>
             <b>Authors</b>
             <ul className={styles.authorsList}>
-              {course.authors.map((authorId) =>
+              {course?.authors?.map((authorId) =>
                 authorsList
-                  ?.filter((author) => author.id === authorId)
+                  ?.filter((author) => author?.id === authorId)
                   .map((author, idx) => (
                     <li key={idx} className={styles.authorsList}>
-                      {author.name}
+                      {author?.name}
                     </li>
                   ))
               )}
