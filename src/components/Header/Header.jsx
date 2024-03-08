@@ -5,10 +5,7 @@ import { Logo } from "./components";
 import styles from "./styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUserData } from "../../store/slices/userSlice";
-import {
-  getUserNameSelector,
-  getUserTokenSelector,
-} from "../../store/selectors";
+import { getUserNameSelector } from "../../store/selectors";
 
 // Module 1:
 // * add Logo and Button components
@@ -44,7 +41,8 @@ export const Header = () => {
   const dispatch = useDispatch();
 
   const userName = useSelector(getUserNameSelector);
-  const token = useSelector(getUserTokenSelector);
+  // const token = useSelector(getUserTokenSelector);
+  const token = localStorage.getItem("token");
 
   const onLogoutClick = () => {
     dispatch(removeUserData());
