@@ -7,3 +7,8 @@
     margin: auto !important;
     display: inline-block !important;
 }
+
+.addButton a {
+    color: white;
+    text-decoration: none;
+  }

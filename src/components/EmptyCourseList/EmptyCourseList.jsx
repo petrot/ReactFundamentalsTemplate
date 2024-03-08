@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../../common";
 import { BUTTON_CAPTIONS } from "../../constants";
 import styles from "./styles.module.css";
@@ -10,10 +11,14 @@ export const EmptyCourseList = () => {
 
         <p>Please use "Add New Course" button to add your first course'</p>
 
-        <div>
+        <div className={styles.addButton}>
           <Button
             className={styles.addButton}
-            buttonText={BUTTON_CAPTIONS.addNewCourse}
+            buttonText={
+              <Link className={styles.addNewCourse} to="/courses/add">
+                {BUTTON_CAPTIONS.addNewCourse}
+              </Link>
+            }
             data-testid="addCourse"
           />
         </div>

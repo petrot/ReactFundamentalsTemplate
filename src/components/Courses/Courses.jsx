@@ -81,7 +81,7 @@ export const Courses = () => {
             className={styles.filterInput}
             placeholderText="Input text"
             labelText=""
-            onChange={({ target }) => setFilter(target.value)}
+            onChange={({ target }) => setFilter(target?.value)}
           />
           <Button
             className={styles.filterButton}
@@ -97,7 +97,6 @@ export const Courses = () => {
                 {BUTTON_CAPTIONS.addNewCourse}
               </Link>
             }
-            handleClick={onSearchClick}
           />
         </div>
       </div>

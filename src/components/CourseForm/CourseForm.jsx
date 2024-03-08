@@ -81,7 +81,7 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
 
   const getAuthorItems = () => {
     return authorsList
-      ?.filter((a) => !(formValues.authors || []).includes(a.id))
+      ?.filter((a) => !(formValues?.authors || []).includes(a.id))
       .map((author, i) => (
         <AuthorItem
           author={author}
@@ -100,7 +100,7 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
   };
 
   const getCourseAuthorItems = () => {
-    return (formValues.authors || []).map((authorId, i) => (
+    return (formValues?.authors || []).map((authorId, i) => (
       <AuthorItem
         author={authorsList?.find((a) => a.id === authorId)}
         key={i}
@@ -151,9 +151,9 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
           placeholderText="Input text"
           labelText="Title"
           data-testid="titleInput"
-          value={formValues.title}
+          value={formValues?.title}
           onChange={handleInputChange}
-          error={formErrors.title}
+          error={formErrors?.title}
         />
 
         <label>
@@ -161,11 +161,11 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
           <textarea
             name="description"
             className={styles.description}
-            value={formValues.description}
+            value={formValues?.description}
             onChange={handleInputChange}
             data-testid="descriptionTextArea"
           />
-          {formErrors.description && (
+          {formErrors?.description && (
             <p className={styles.validationError}>Description is required.</p>
           )}
         </label>
@@ -177,12 +177,12 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
                 placeholderText="Input text"
                 labelText="Duration"
                 data-testid="durationInput"
-                value={formValues.duration}
+                value={formValues?.duration}
                 onChange={handleInputChange}
-                error={formErrors.duration}
+                error={formErrors?.duration}
               />
 
-              <p>{getCourseDuration(formValues.duration)}</p>
+              <p>{getCourseDuration(formValues?.duration)}</p>
             </div>
             <h2>Authors</h2>
 
@@ -195,7 +195,7 @@ export const CourseForm = ({ createCourse, createAuthor }) => {
 
           <div className={styles.courseAuthorsContainer}>
             <h2>Course authors</h2>
-            {(formValues.authors || []).length > 0 ? (
+            {(formValues?.authors || []).length > 0 ? (
               getCourseAuthorItems()
             ) : (
               <p className={styles.notification}>List is empty</p>
