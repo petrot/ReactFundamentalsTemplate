@@ -5,6 +5,7 @@ const initialState = {
   name: "",
   email: "",
   token: localStorage.getItem("token"),
+  role: "",
 };
 
 export const userSlice = createSlice({

@@ -1,9 +1,22 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../common";
 import { BUTTON_CAPTIONS } from "../../constants";
 import styles from "./styles.module.css";
+import { useSelector } from "react-redux";
+import { getUserRoleSelector } from "../../store/selectors";
 
 export const EmptyCourseList = () => {
+  const navigate = useNavigate();
+  const userRole = useSelector(getUserRoleSelector);
+
+  const onAddCourseButtonClick = () => {
+    userRole === "admin"
+      ? navigate("/courses/add", { replace: true })
+      : window.alert(
+          "You don't have permissions to create a course. Please log in as ADMIN"
+        );
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -14,11 +27,8 @@ export const EmptyCourseList = () => {
         <div className={styles.addButton}>
           <Button
             className={styles.addButton}
-            buttonText={
-              <Link className={styles.addNewCourse} to="/courses/add">
-                {BUTTON_CAPTIONS.addNewCourse}
-              </Link>
-            }
+            buttonText={BUTTON_CAPTIONS.addNewCourse}
+            handleClick={onAddCourseButtonClick}
             data-testid="addCourse"
           />
         </div>

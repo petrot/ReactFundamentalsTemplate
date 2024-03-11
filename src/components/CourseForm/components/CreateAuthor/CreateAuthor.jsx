@@ -2,8 +2,8 @@ import styles from "./styles.module.css";
 import { Button, Input } from "../../../../common";
 import { BUTTON_CAPTIONS } from "../../../../constants";
 import { useState } from "react";
-import { saveAuthor } from "../../../../store/slices/authorsSlice";
 import { useDispatch } from "react-redux";
+import { createAuthorThunk } from "../../../../store/thunks/authorsThunk";
 
 export const CreateAuthor = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,8 @@ export const CreateAuthor = () => {
         handleClick={() => {
           setAuthorName("");
 
-          dispatch(saveAuthor({ name: authorName, id: new Date().getTime() }));
+          const token = localStorage.getItem("token");
+          dispatch(createAuthorThunk({ name: authorName }, token));
         }}
         data-testid="createAuthorButton"
         type="button"

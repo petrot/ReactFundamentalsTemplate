@@ -4,8 +4,8 @@ import { BUTTON_CAPTIONS } from "../../constants";
 import { Logo } from "./components";
 import styles from "./styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { removeUserData } from "../../store/slices/userSlice";
 import { getUserNameSelector } from "../../store/selectors";
+import { logoutThunk } from "../../store/thunks/userThunk";
 
 // Module 1:
 // * add Logo and Button components
@@ -44,7 +44,8 @@ export const Header = () => {
   const token = localStorage.getItem("token");
 
   const onLogoutClick = () => {
-    dispatch(removeUserData());
+    dispatch(logoutThunk(token));
+
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 

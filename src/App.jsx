@@ -9,11 +9,12 @@ import {
   Courses,
   Header,
   Login,
+  PrivateRoute,
   Registration,
 } from "./components";
-import { getAuthors, getCourses } from "./services";
-import { setAuthors } from "./store/slices/authorsSlice";
-import { setCourses } from "./store/slices/coursesSlice";
+import { getCoursesThunk } from "./store/thunks/coursesThunk";
+import { getAuthorsThunk } from "./store/thunks/authorsThunk";
+import { getUserThunk } from "./store/thunks/userThunk";
 
 // Module 1:
 // * use mockedAuthorsList and mockedCoursesList mocked data
@@ -49,18 +50,17 @@ function App() {
       const token = localStorage.getItem("token");
 
       if (token && location.pathname === "/") {
+        dispatch(getUserThunk(token));
+
         navigate("/courses", { replace: true });
       }
     }
-  }, [navigate, location]);
+  }, [navigate, location, dispatch]);
 
   useEffect(() => {
     const fetchInitData = async () => {
-      const c = await getCourses();
-      dispatch(setCourses(c?.successful ? c?.result : []));
-
-      const a = await getAuthors();
-      dispatch(setAuthors(a?.successful ? a?.result : []));
+      dispatch(getCoursesThunk());
+      dispatch(getAuthorsThunk());
     };
 
     fetchInitData();
@@ -73,7 +73,14 @@ function App() {
       <div className={styles.container}>
         <Routes>
           <Route path="courses" element={<Courses />}></Route>
-          <Route path="courses/add" element={<CourseForm />} />
+          <Route
+            path="courses/add"
+            element={<PrivateRoute children={<CourseForm />} />}
+          />
+          <Route
+            path="courses/update/:courseId"
+            element={<PrivateRoute children={<CourseForm />} />}
+          />
           <Route path="courses/:courseId" element={<CourseInfo />} />
           <Route path="login" element={<Login />} />
           <Route path="registration" element={<Registration />} />

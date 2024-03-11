@@ -53,26 +53,31 @@ import { getCourseDuration } from "../../helpers";
 import { BUTTON_CAPTIONS } from "../../constants";
 import { AuthorItem, CreateAuthor } from "./components";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthorsSelector } from "../../store/selectors";
-import { saveCourse } from "../../store/slices/coursesSlice";
+import { getAuthorsSelector, getCoursesSelector } from "../../store/selectors";
+import {
+  createCourseThunk,
+  updateCourseThunk,
+} from "../../store/thunks/coursesThunk";
+import { useParams } from "react-router-dom";
 
 export const CourseForm = () => {
   const dispatch = useDispatch();
+  const params = useParams();
 
-  const [formValues, setFormValues] = useState({
-    title: "",
-    description: "",
-    duration: 0,
-    authors: [],
-  });
+  const authorsList = useSelector(getAuthorsSelector);
+  const coursesList = useSelector(getCoursesSelector);
+
+  const courseData = params.courseId
+    ? coursesList?.find((c) => c.id === params.courseId)
+    : { title: "", description: "", duration: 0, authors: [] };
+
+  const [formValues, setFormValues] = useState(courseData);
 
   const [formErrors, setFormErrors] = useState({
     title: false,
     description: false,
     duration: false,
   });
-
-  const authorsList = useSelector(getAuthorsSelector);
 
   const handleInputChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
@@ -140,11 +145,24 @@ export const CourseForm = () => {
     const hasErrors = Object.values(errors).some((error) => !!error);
 
     if (!hasErrors) {
+      const token = localStorage.getItem("token");
+
       dispatch(
-        saveCourse({
-          ...formValues,
-          duration: parseInt(formValues?.duration, 10),
-        })
+        params.courseId
+          ? updateCourseThunk(
+              {
+                ...formValues,
+                duration: parseInt(formValues?.duration, 10),
+              },
+              token
+            )
+          : createCourseThunk(
+              {
+                ...formValues,
+                duration: parseInt(formValues?.duration, 10),
+              },
+              token
+            )
       );
     }
   };

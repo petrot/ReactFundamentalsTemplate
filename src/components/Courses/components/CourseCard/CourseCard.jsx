@@ -37,18 +37,25 @@ import editIcon from "../../../../assets/editButtonIcon.svg";
 
 import styles from "./styles.module.css";
 import { Button } from "../../../../common";
-import { useDispatch } from "react-redux";
-import { deleteCourse } from "../../../../store/slices/coursesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserRoleSelector } from "../../../../store/selectors";
+import { useNavigate } from "react-router-dom";
+import { deleteCourseThunk } from "../../../../store/thunks/coursesThunk";
 
 export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const userRole = useSelector(getUserRoleSelector);
+
   const onDeleteButtonClick = () => {
-    dispatch(deleteCourse(course?.id));
+    const token = localStorage.getItem("token");
+
+    dispatch(deleteCourseThunk(course?.id, token));
   };
 
   const onUpdateButtonClick = () => {
-    console.error("Update clicked on ", course?.id);
+    navigate("/courses/update/" + course?.id, { replace: true });
   };
 
   return (
@@ -72,16 +79,22 @@ export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
         </p>
         <div className={styles.buttonsContainer}>
           <Button buttonText="SHOW COURSE" handleClick={handleShowCourse} />
-          <Button
-            data-testid="deleteCourse"
-            buttonText={<img src={deleteIcon} alt="delete" />}
-            handleClick={onDeleteButtonClick}
-          />
-          <Button
-            data-testid="updateCourse"
-            buttonText={<img src={editIcon} alt="edit" />}
-            handleClick={onUpdateButtonClick}
-          />
+          {userRole === "admin" ? (
+            <>
+              <Button
+                data-testid="deleteCourse"
+                buttonText={<img src={deleteIcon} alt="delete" />}
+                handleClick={onDeleteButtonClick}
+              />
+              <Button
+                data-testid="updateCourse"
+                buttonText={<img src={editIcon} alt="edit" />}
+                handleClick={onUpdateButtonClick}
+              />
+            </>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
