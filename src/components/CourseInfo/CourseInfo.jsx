@@ -41,7 +41,7 @@ export const CourseInfo = () => {
   const coursesList = useSelector(getCoursesSelector);
   const authorsList = useSelector(getAuthorsSelector);
 
-  const course = coursesList?.find((c) => c.id === params.courseId);
+  const course = coursesList?.find((c) => c.id === params?.courseId);
 
   return (
     <div className={styles.container} data-testid="courseInfo">

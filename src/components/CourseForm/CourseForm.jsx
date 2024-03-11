@@ -67,8 +67,8 @@ export const CourseForm = () => {
   const authorsList = useSelector(getAuthorsSelector);
   const coursesList = useSelector(getCoursesSelector);
 
-  const courseData = params.courseId
-    ? coursesList?.find((c) => c.id === params.courseId)
+  const courseData = params?.courseId
+    ? coursesList?.find((c) => c.id === params?.courseId)
     : { title: "", description: "", duration: 0, authors: [] };
 
   const [formValues, setFormValues] = useState(courseData);
@@ -148,7 +148,7 @@ export const CourseForm = () => {
       const token = localStorage.getItem("token");
 
       dispatch(
-        params.courseId
+        params?.courseId
           ? updateCourseThunk(
               {
                 ...formValues,

@@ -12,7 +12,7 @@ export const EmptyCourseList = () => {
   const onAddCourseButtonClick = () => {
     userRole === "admin"
       ? navigate("/courses/add", { replace: true })
-      : window.alert(
+      : window?.alert(
           "You don't have permissions to create a course. Please log in as ADMIN"
         );
   };

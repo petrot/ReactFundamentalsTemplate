@@ -57,7 +57,7 @@ export const getCurrentUser = async (token) => {
 };
 
 export const updateCourse = async (data, token) => {
-  const response = await fetch("http://localhost:4000/courses/" + data.id, {
+  const response = await fetch("http://localhost:4000/courses/" + data?.id, {
     method: "PUT",
     body: JSON.stringify(data),
     headers: {

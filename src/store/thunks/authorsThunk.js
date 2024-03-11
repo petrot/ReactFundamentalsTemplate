@@ -7,7 +7,7 @@ export const createAuthorThunk = (data, token) => {
     if (author?.result?.id) {
       dispatch({
         type: "authors/saveAuthor",
-        payload: author.result,
+        payload: author?.result,
       });
     }
   };
@@ -19,7 +19,7 @@ export const getAuthorsThunk = () => {
 
     dispatch({
       type: "authors/setAuthors",
-      payload: authors.result,
+      payload: authors?.result,
     });
   };
 };

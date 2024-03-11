@@ -12,7 +12,7 @@ export const updateCourseThunk = (data, token) => {
     if (course?.result?.id) {
       dispatch({
         type: "courses/updateCourse",
-        payload: course.result,
+        payload: course?.result,
       });
     }
   };
@@ -38,7 +38,7 @@ export const createCourseThunk = (data, token) => {
     if (course?.result?.id) {
       dispatch({
         type: "courses/saveCourse",
-        payload: course.result,
+        payload: course?.result,
       });
     }
   };
@@ -50,7 +50,7 @@ export const getCoursesThunk = () => {
 
     dispatch({
       type: "courses/setCourses",
-      payload: courses.result,
+      payload: courses?.result,
     });
   };
 };

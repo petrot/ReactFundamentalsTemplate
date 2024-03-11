@@ -1,5 +1,3 @@
-// export const getUserThunk = () => {};
-
 import { getCurrentUser, logout } from "../../services";
 
 export const getUserThunk = (token) => {
@@ -8,7 +6,7 @@ export const getUserThunk = (token) => {
 
     dispatch({
       type: "user/setUserData",
-      payload: user.result,
+      payload: user?.result,
     });
   };
 };
@@ -19,7 +17,7 @@ export const logoutThunk = (token) => {
 
     dispatch({
       type: "user/removeUserData",
-      payload: user.result,
+      payload: user?.result,
     });
   };
 };
