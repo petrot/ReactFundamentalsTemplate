@@ -68,13 +68,7 @@ export const Login = () => {
 
       localStorage.setItem("token", response?.result);
 
-      dispatch(
-        setUserData({
-          ...response?.user,
-          token: response?.result,
-        })
-      );
-
+      dispatch(setUserData({ ...response.user, token: response.result }));
       // dispatch(getUserThunk(response?.result));
       navigate("/courses", { replace: true });
     }
