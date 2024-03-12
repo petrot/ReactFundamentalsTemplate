@@ -9,14 +9,6 @@ export const EmptyCourseList = () => {
   const navigate = useNavigate();
   const userRole = useSelector(getUserRoleSelector);
 
-  const onAddCourseButtonClick = () => {
-    userRole === "admin"
-      ? navigate("/courses/add", { replace: true })
-      : window?.alert(
-          "You don't have permissions to create a course. Please log in as ADMIN"
-        );
-  };
-
   return (
     <>
       <div className={styles.container}>
@@ -30,13 +22,13 @@ export const EmptyCourseList = () => {
               <Button
                 className={styles.addButton}
                 buttonText={BUTTON_CAPTIONS.addNewCourse}
-                handleClick={onAddCourseButtonClick}
+                handleClick={() => navigate("/courses/add", { replace: true })}
                 data-testid="addCourse"
               />
             </div>
           </>
         ) : (
-          ""
+          "You don't have permissions to create a course. Please log in as ADMIN"
         )}
       </div>
     </>
