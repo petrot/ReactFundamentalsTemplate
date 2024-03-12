@@ -105,7 +105,7 @@ export const Login = () => {
           />
         </form>
         <p>
-          If you don't have an account you can &nbsp;
+          If you don't have an account you may &nbsp;
           <Link className={styles.registration} to={`/registration`}>
             Registration
           </Link>
