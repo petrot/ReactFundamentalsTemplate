@@ -51,8 +51,10 @@ function App() {
 
       if (token && location.pathname === "/") {
         dispatch(getUserThunk(token));
-
         navigate("/courses", { replace: true });
+      }
+      if (!token && location.pathname === "/") {
+        navigate("/login", { replace: true });
       }
     }
   }, [navigate, location, dispatch]);

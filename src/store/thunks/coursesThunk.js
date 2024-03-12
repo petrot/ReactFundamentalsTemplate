@@ -35,12 +35,10 @@ export const createCourseThunk = (data, token) => {
   return async (dispatch) => {
     const course = await createCourse(data, token);
 
-    if (course?.result?.id) {
-      dispatch({
-        type: "courses/saveCourse",
-        payload: course?.result,
-      });
-    }
+    dispatch({
+      type: "courses/saveCourse",
+      payload: course?.result,
+    });
   };
 };
 

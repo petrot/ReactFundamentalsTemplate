@@ -57,9 +57,11 @@ export const getCurrentUser = async (token) => {
 };
 
 export const updateCourseService = async (data, token) => {
+  const { id, ...courseData } = data;
+
   const response = await fetch("http://localhost:4000/courses/" + data?.id, {
     method: "PUT",
-    body: JSON.stringify(data),
+    body: JSON.stringify(courseData),
     headers: {
       "Content-Type": "application/json",
       Authorization: token,

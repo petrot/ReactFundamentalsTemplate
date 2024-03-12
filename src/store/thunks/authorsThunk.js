@@ -4,12 +4,10 @@ export const createAuthorThunk = (data, token) => {
   return async (dispatch) => {
     const author = await createAuthor(data, token);
 
-    if (author?.result?.id) {
-      dispatch({
-        type: "authors/saveAuthor",
-        payload: author?.result,
-      });
-    }
+    dispatch({
+      type: "authors/saveAuthor",
+      payload: author?.result,
+    });
   };
 };
 
