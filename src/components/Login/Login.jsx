@@ -23,7 +23,7 @@ import { Button, Input } from "../../common";
 import { BUTTON_CAPTIONS } from "../../constants";
 import { login } from "../../services";
 import { useDispatch } from "react-redux";
-import { getUserThunk } from "../../store/thunks/userThunk";
+import { setUserData } from "../../store/slices/userSlice";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -68,7 +68,14 @@ export const Login = () => {
 
       localStorage.setItem("token", response?.result);
 
-      dispatch(getUserThunk(response?.result));
+      dispatch(
+        setUserData({
+          ...response?.user,
+          token: response?.result,
+        })
+      );
+
+      // dispatch(getUserThunk(response?.result));
       navigate("/courses", { replace: true });
     }
   };
