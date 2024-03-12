@@ -22,16 +22,22 @@ export const EmptyCourseList = () => {
       <div className={styles.container}>
         <h3>Your list is empty</h3>
 
-        <p>Please use "Add New Course" button to add your first course'</p>
+        {userRole === "admin" ? (
+          <>
+            <p>Please use "Add New Course" button to add your first course'</p>
 
-        <div className={styles.addButton}>
-          <Button
-            className={styles.addButton}
-            buttonText={BUTTON_CAPTIONS.addNewCourse}
-            handleClick={onAddCourseButtonClick}
-            data-testid="addCourse"
-          />
-        </div>
+            <div className={styles.addButton}>
+              <Button
+                className={styles.addButton}
+                buttonText={BUTTON_CAPTIONS.addNewCourse}
+                handleClick={onAddCourseButtonClick}
+                data-testid="addCourse"
+              />
+            </div>
+          </>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

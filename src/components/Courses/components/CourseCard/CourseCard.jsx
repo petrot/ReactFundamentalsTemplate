@@ -39,11 +39,10 @@ import styles from "./styles.module.css";
 import { Button } from "../../../../common";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserRoleSelector } from "../../../../store/selectors";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { deleteCourseThunk } from "../../../../store/thunks/coursesThunk";
 
 export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userRole = useSelector(getUserRoleSelector);
@@ -52,10 +51,6 @@ export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
     const token = localStorage.getItem("token");
 
     dispatch(deleteCourseThunk(course?.id, token));
-  };
-
-  const onUpdateButtonClick = () => {
-    navigate("/courses/update/" + course?.id, { replace: true });
   };
 
   return (
@@ -88,8 +83,14 @@ export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
               />
               <Button
                 data-testid="updateCourse"
-                buttonText={<img src={editIcon} alt="edit" />}
-                handleClick={onUpdateButtonClick}
+                buttonText={
+                  <Link
+                    className={styles.addNewCourse}
+                    to={"/courses/update/" + course?.id}
+                  >
+                    <img src={editIcon} alt="edit" />
+                  </Link>
+                }
               />
             </>
           ) : (
