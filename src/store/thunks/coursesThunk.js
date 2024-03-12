@@ -1,13 +1,13 @@
 import {
   createCourse,
-  deleteCourse,
+  deleteCourseService,
   getCourses,
-  updateCourse,
+  updateCourseService,
 } from "../../services";
 
 export const updateCourseThunk = (data, token) => {
   return async (dispatch) => {
-    const course = await updateCourse(data, token);
+    const course = await updateCourseService(data, token);
 
     if (course?.result?.id) {
       dispatch({
@@ -20,7 +20,7 @@ export const updateCourseThunk = (data, token) => {
 
 export const deleteCourseThunk = (courseId, token) => {
   return async (dispatch) => {
-    const course = await deleteCourse(courseId, token);
+    const course = await deleteCourseService(courseId, token);
 
     if (course?.result) {
       dispatch({

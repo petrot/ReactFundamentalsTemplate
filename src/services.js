@@ -56,7 +56,7 @@ export const getCurrentUser = async (token) => {
   return await response?.json();
 };
 
-export const updateCourse = async (data, token) => {
+export const updateCourseService = async (data, token) => {
   const response = await fetch("http://localhost:4000/courses/" + data?.id, {
     method: "PUT",
     body: JSON.stringify(data),
@@ -81,7 +81,7 @@ export const logout = async (token) => {
   return await response;
 };
 
-export const deleteCourse = async (courseId, token) => {
+export const deleteCourseService = async (courseId, token) => {
   const response = await fetch("http://localhost:4000/courses/" + courseId, {
     method: "DELETE",
     headers: {
