@@ -90,14 +90,12 @@ export const Courses = () => {
           />
         </div>
         <div className={styles.panel}>
-          <Button
-            className={styles.addNewCourse}
-            buttonText={
-              <Link className={styles.addNewCourse} to="/courses/add">
-                {BUTTON_CAPTIONS.addNewCourse}
-              </Link>
-            }
-          />
+          <Link className={styles.addNewCourse} to="/courses/add">
+            <Button
+              className={styles.addNewCourse}
+              buttonText={BUTTON_CAPTIONS.addNewCourse}
+            />
+          </Link>
         </div>
       </div>
       {getCourseItems()}

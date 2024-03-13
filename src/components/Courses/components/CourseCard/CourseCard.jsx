@@ -81,17 +81,15 @@ export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
                 buttonText={<img src={deleteIcon} alt="delete" />}
                 handleClick={onDeleteButtonClick}
               />
-              <Button
-                data-testid="updateCourse"
-                buttonText={
-                  <Link
-                    className={styles.addNewCourse}
-                    to={"/courses/update/" + course?.id}
-                  >
-                    <img src={editIcon} alt="edit" />
-                  </Link>
-                }
-              />
+              <Link
+                className={styles.addNewCourse}
+                to={"/courses/update/" + course?.id}
+              >
+                <Button
+                  data-testid="updateCourse"
+                  buttonText={<img src={editIcon} alt="edit" />}
+                />
+              </Link>
             </>
           ) : (
             ""
