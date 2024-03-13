@@ -15,5 +15,5 @@ import { useSelector } from "react-redux";
 export const PrivateRoute = ({ children }) => {
   const userRole = useSelector(getUserRoleSelector);
 
-  return userRole === "admin" ? children : <Navigate to="/login" />;
+  return userRole === "admin" ? children : <Navigate to="/courses" />;
 };
