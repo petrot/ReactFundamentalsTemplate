@@ -1,6 +1,5 @@
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import { createAuthorThunk, getAuthorsThunk } from "../authorsThunk";
 
 import * as Services from "../../../services";
 import { mockedState } from "../../../test-helpers";
