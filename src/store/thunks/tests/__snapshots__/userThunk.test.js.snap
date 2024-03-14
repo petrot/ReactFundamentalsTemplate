@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[userThunk] should getUserThunk dispatches setUserData 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "isAuth": true,
+      "name": "Test Name",
+      "role": "admin",
+      "token": "mock-token",
+    },
+    "type": "user/setUserData",
+  },
+]
+`;
+
+exports[`[userThunk] should logoutThunk dispatches removeUserData 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "email": "",
+      "isAuth": false,
+      "name": "",
+      "role": "",
+      "token": null,
+    },
+    "type": "user/removeUserData",
+  },
+]
+`;

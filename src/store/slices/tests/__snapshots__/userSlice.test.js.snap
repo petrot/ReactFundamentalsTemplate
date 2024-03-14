@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`authorsSlice should handle a user being removed 1`] = `
+Object {
+  "email": "",
+  "isAuth": false,
+  "name": "",
+  "role": "",
+  "token": null,
+}
+`;
+
+exports[`authorsSlice should handle a user being updated 1`] = `
+Object {
+  "isAuth": true,
+  "name": "Test Name",
+  "role": "admin",
+  "token": "mock-token",
+}
+`;

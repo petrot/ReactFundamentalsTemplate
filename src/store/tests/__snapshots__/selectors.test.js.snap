@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Selectors should get authors 1`] = `
+Array [
+  Object {
+    "id": "9b87e8b8-6ba5-40fc-a439-c4e30a373d36",
+    "name": "author",
+  },
+  Object {
+    "id": "1c972c52-3198-4098-b6f7-799b45903199",
+    "name": "author2",
+  },
+  Object {
+    "id": "072fe3fc-e751-4745-9af5-aa9eed0ea9ed",
+    "name": "author3",
+  },
+]
+`;
+
+exports[`Selectors should get courses 1`] = `
+Array [
+  Object {
+    "authors": Array [
+      "9b87e8b8-6ba5-40fc-a439-c4e30a373d36",
+      "1c972c52-3198-4098-b6f7-799b45903199",
+      "072fe3fc-e751-4745-9af5-aa9eed0ea9ed",
+    ],
+    "creationDate": "11/03/2024",
+    "description": "Description 1",
+    "duration": 5,
+    "id": "b28fd9ad-c683-4900-bf99-38a1c5748309",
+    "title": "Course 1",
+  },
+]
+`;

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+export const initialUserState = {
   isAuth: false,
   name: "",
   email: "",
@@ -10,10 +10,10 @@ const initialState = {
 
 export const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: initialUserState,
   reducers: {
     setUserData: (state, { payload }) => payload,
-    removeUserData: () => initialState,
+    removeUserData: () => initialUserState,
   },
 });
 

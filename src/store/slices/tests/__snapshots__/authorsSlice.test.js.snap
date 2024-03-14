@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`authorsSlice should handle a course being added 1`] = `
+Array [
+  Object {
+    "id": "9b87e8b8-6ba5-40fc-a439-c4e30a373d36",
+    "name": "author",
+  },
+  Object {
+    "id": "1c972c52-3198-4098-b6f7-799b45903199",
+    "name": "author2",
+  },
+  Object {
+    "id": "072fe3fc-e751-4745-9af5-aa9eed0ea9ed",
+    "name": "author3",
+  },
+  Object {
+    "id": "365fe3fc-e751-4745-9af5-bf9eed0ea9de",
+    "name": "author4",
+  },
+]
+`;
+
+exports[`authorsSlice should handle a course list being added to an empty list 1`] = `
+Array [
+  Object {
+    "id": "9b87e8b8-6ba5-40fc-a439-c4e30a373d36",
+    "name": "author",
+  },
+  Object {
+    "id": "1c972c52-3198-4098-b6f7-799b45903199",
+    "name": "author2",
+  },
+  Object {
+    "id": "072fe3fc-e751-4745-9af5-aa9eed0ea9ed",
+    "name": "author3",
+  },
+]
+`;
