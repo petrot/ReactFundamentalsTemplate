@@ -9,11 +9,15 @@ import {
   TestWrapper,
 } from "../../../../../test-helpers";
 import { CourseCard } from "../CourseCard";
+import configureStore from "redux-mock-store";
 
 const course = mockedState.courses[0];
 const authors = course?.authors?.map((authorId) =>
   mockedState.authors.find((author) => author?.id === authorId)
 );
+
+const middlewares = [];
+const mockStoreCreator = configureStore(middlewares);
 
 describe("CourseCard", () => {
   beforeAll(() => {
@@ -108,23 +112,63 @@ describe("CourseCard", () => {
     expect(button).toBeInTheDocument();
   });
 
-  /*
-  it("should have logout button when token is exists", async () => {
+  it("should have delete button when the user has admin role", async () => {
+    const initialState = { user: { role: "admin" } };
+    const store = mockStoreCreator(initialState);
 
-    // Mock the token value
-    useSelector
+    render(
+      <TestWrapper
+        children={<CourseCard course={course} authorsList={authors} />}
+        store={store}
+      />
+    );
 
-    render(<CourseCard course={course} authorsList={authors} />, {
-        wrapper: TestWrapper,
-      });
-
-    // Read token
-    expect(mockGetItem).toHaveBeenCalledTimes(1);
-
-    // Logout button is visible
-    const button = await screen.findByText(BUTTON_CAPTIONS.logout);
-    expect(button).toBeInTheDocument();
-
+    const deleteButton = await screen.findByTestId("deleteCourse");
+    expect(deleteButton).toBeInTheDocument();
   });
-  */
+
+  it("should have update button when the user has admin role", async () => {
+    const initialState = { user: { role: "admin" } };
+    const store = mockStoreCreator(initialState);
+
+    render(
+      <TestWrapper
+        children={<CourseCard course={course} authorsList={authors} />}
+        store={store}
+      />
+    );
+
+    const updateButton = await screen.findByTestId("updateCourse");
+    expect(updateButton).toBeInTheDocument();
+  });
+
+  it("should not have delete button when the user has admin role", async () => {
+    const initialState = { user: { role: "" } };
+    const store = mockStoreCreator(initialState);
+
+    render(
+      <TestWrapper
+        children={<CourseCard course={course} authorsList={authors} />}
+        store={store}
+      />
+    );
+
+    const deleteButton = await screen.queryByTestId("deleteCourse");
+    expect(deleteButton).not.toBeInTheDocument();
+  });
+
+  it("should not have update button when the user has admin role", async () => {
+    const initialState = { user: { role: "" } };
+    const store = mockStoreCreator(initialState);
+
+    render(
+      <TestWrapper
+        children={<CourseCard course={course} authorsList={authors} />}
+        store={store}
+      />
+    );
+
+    const updateButton = await screen.queryByTestId("updateCourse");
+    expect(updateButton).not.toBeInTheDocument();
+  });
 });

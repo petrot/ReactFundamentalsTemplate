@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Header } from "../Header";
 
 import { BUTTON_CAPTIONS } from "../../../constants";
@@ -6,6 +6,7 @@ import {
   TEST_NAME,
   TestWrapper,
   mockGetItem,
+  mockRemoveItem,
   mockSetItem,
   prepareMockLocalStorage,
 } from "../../../test-helpers";
@@ -63,5 +64,19 @@ describe("Header", () => {
     // Logout button is not visible
     const button = await screen.queryByText(BUTTON_CAPTIONS.logout);
     expect(button).not.toBeInTheDocument();
+  });
+
+  it("should logout button calls onLogoutClick and clear localStorage", async () => {
+    // Mock the token value
+    mockGetItem.mockReturnValueOnce("someToken");
+
+    render(<Header />, { wrapper: TestWrapper });
+
+    // Logout button click
+    const button = await screen.findByText(BUTTON_CAPTIONS.logout);
+    fireEvent.click(button);
+
+    // Remove token and user
+    expect(mockRemoveItem).toHaveBeenCalledTimes(2);
   });
 });

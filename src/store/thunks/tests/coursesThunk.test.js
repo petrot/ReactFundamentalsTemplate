@@ -50,6 +50,23 @@ describe("[coursesThunk]", () => {
     expect(actions).toMatchSnapshot();
   });
 
+  it("should updateCourseThunk not dispatches updateCourse without response id", async () => {
+    const courseData = {
+      ...mockedState.courses[0],
+      title: "Modified",
+      id: undefined,
+    };
+
+    jest.spyOn(Services, "updateCourseService").mockResolvedValue({
+      result: courseData,
+    });
+
+    await store.dispatch(updateCourseThunk(courseData));
+    const actions = store.getActions();
+
+    expect(actions).toMatchInlineSnapshot(`Array []`);
+  });
+
   it("should deleteCourseThunk dispatches deleteCourse", async () => {
     jest.spyOn(Services, "deleteCourseService").mockResolvedValue({
       result: "OK",
@@ -59,6 +76,17 @@ describe("[coursesThunk]", () => {
     const actions = store.getActions();
 
     expect(actions).toMatchSnapshot();
+  });
+
+  it("should deleteCourseThunk not dispatches deleteCourse without result", async () => {
+    jest.spyOn(Services, "deleteCourseService").mockResolvedValue({
+      result: undefined,
+    });
+
+    await store.dispatch(deleteCourseThunk("mockId"));
+    const actions = store.getActions();
+
+    expect(actions).toMatchInlineSnapshot(`Array []`);
   });
 
   it("should getCoursesThunk dispatches setCourses", async () => {

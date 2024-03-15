@@ -61,6 +61,7 @@ export const Registration = () => {
       const response = await createUser(formValues);
 
       if (response?.successful) {
+        console.error("CALL LOGIN");
         navigate("/login", { replace: true });
       }
     }

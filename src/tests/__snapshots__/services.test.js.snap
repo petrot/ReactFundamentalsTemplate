@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Services] createCourse function fetches the authors/add endpoint correctly 1`] = `
+Object {
+  "response": Object {
+    "name": "author",
+  },
+}
+`;
+
+exports[`[Services] createCourse function fetches the courses/add endpoint correctly 1`] = `
+Object {
+  "response": Object {
+    "authors": Array [
+      "9b87e8b8-6ba5-40fc-a439-c4e30a373d36",
+      "1c972c52-3198-4098-b6f7-799b45903199",
+      "072fe3fc-e751-4745-9af5-aa9eed0ea9ed",
+    ],
+    "creationDate": "11/03/2024",
+    "description": "Description 1",
+    "duration": 5,
+    "title": "Course 1",
+  },
+}
+`;
+
+exports[`[Services] createUser function fetches the register endpoint correctly 1`] = `
+Object {
+  "response": Object {
+    "name": "John Doe",
+  },
+}
+`;
+
+exports[`[Services] deleteCourseService function fetches the courses endpoint correctly 1`] = `
+Object {
+  "response": "OK",
+}
+`;
+
+exports[`[Services] getAuthors function fetches the authors/all endpoint correctly 1`] = `
+Object {
+  "response": Array [
+    Object {
+      "id": "9b87e8b8-6ba5-40fc-a439-c4e30a373d36",
+      "name": "author",
+    },
+    Object {
+      "id": "1c972c52-3198-4098-b6f7-799b45903199",
+      "name": "author2",
+    },
+    Object {
+      "id": "072fe3fc-e751-4745-9af5-aa9eed0ea9ed",
+      "name": "author3",
+    },
+  ],
+}
+`;
+
+exports[`[Services] getCourses function fetches the courses/all endpoint correctly 1`] = `
+Object {
+  "response": Array [
+    Object {
+      "authors": Array [
+        "9b87e8b8-6ba5-40fc-a439-c4e30a373d36",
+        "1c972c52-3198-4098-b6f7-799b45903199",
+        "072fe3fc-e751-4745-9af5-aa9eed0ea9ed",
+      ],
+      "creationDate": "11/03/2024",
+      "description": "Description 1",
+      "duration": 5,
+      "id": "b28fd9ad-c683-4900-bf99-38a1c5748309",
+      "title": "Course 1",
+    },
+  ],
+}
+`;
+
+exports[`[Services] getCurrentUser function fetches the users/me endpoint correctly 1`] = `
+Object {
+  "response": Object {
+    "name": "John Doe",
+    "role": "admin",
+  },
+}
+`;
+
+exports[`[Services] login function fetches the login endpoint correctly 1`] = `
+Object {
+  "response": Object {
+    "email": "john@doe.com",
+    "password": "asdfg",
+  },
+}
+`;
+
+exports[`[Services] logout function fetches the logout endpoint correctly 1`] = `
+Object {
+  "json": [Function],
+}
+`;
+
+exports[`[Services] updateCourseService function fetches the courses endpoint correctly 1`] = `
+Object {
+  "response": Object {
+    "authors": Array [
+      "9b87e8b8-6ba5-40fc-a439-c4e30a373d36",
+      "1c972c52-3198-4098-b6f7-799b45903199",
+      "072fe3fc-e751-4745-9af5-aa9eed0ea9ed",
+    ],
+    "creationDate": "11/03/2024",
+    "description": "Description 1",
+    "duration": 5,
+    "id": "b28fd9ad-c683-4900-bf99-38a1c5748309",
+    "title": "New Title",
+  },
+}
+`;

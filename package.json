@@ -78,5 +78,10 @@
     "titleTemplate": "{classname}-{title}",
     "ancestorSeparator": " › ",
     "usePathForSuiteName": "true"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns" : [
+      "src/test-helpers"
+    ]
   }
 }
