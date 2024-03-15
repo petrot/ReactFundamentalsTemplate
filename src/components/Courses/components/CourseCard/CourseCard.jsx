@@ -41,6 +41,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserRoleSelector } from "../../../../store/selectors";
 import { Link } from "react-router-dom";
 import { deleteCourseThunk } from "../../../../store/thunks/coursesThunk";
+import { BUTTON_CAPTIONS } from "../../../../constants";
 
 export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
   const dispatch = useDispatch();
@@ -73,7 +74,10 @@ export const CourseCard = ({ course, handleShowCourse, authorsList }) => {
           <span>{formatCreationDate(course?.creationDate)}</span>
         </p>
         <div className={styles.buttonsContainer}>
-          <Button buttonText="SHOW COURSE" handleClick={handleShowCourse} />
+          <Button
+            buttonText={BUTTON_CAPTIONS.showCourse}
+            handleClick={handleShowCourse}
+          />
           {userRole === "admin" ? (
             <>
               <Button
