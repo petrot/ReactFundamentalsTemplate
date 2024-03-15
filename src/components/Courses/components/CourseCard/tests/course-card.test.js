@@ -1,23 +1,24 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import { BUTTON_CAPTIONS } from "../../../../../constants";
 import { formatCreationDate, getCourseDuration } from "../../../../../helpers";
 import {
   mockedState,
+  mockGetItem,
   mockSetItem,
   prepareMockLocalStorage,
   TestWrapper,
 } from "../../../../../test-helpers";
 import { CourseCard } from "../CourseCard";
 import configureStore from "redux-mock-store";
+import * as CoursesThunks from "../../../../../store/thunks/coursesThunk";
 
 const course = mockedState.courses[0];
 const authors = course?.authors?.map((authorId) =>
   mockedState.authors.find((author) => author?.id === authorId)
 );
 
-const middlewares = [];
-const mockStoreCreator = configureStore(middlewares);
+const mockStoreCreator = configureStore();
 
 describe("CourseCard", () => {
   beforeAll(() => {
@@ -33,7 +34,7 @@ describe("CourseCard", () => {
     jest.restoreAllMocks();
   });
 
-  it("should render courseCard component", async () => {
+  it("should render CourseCard component", async () => {
     render(<CourseCard course={course} authorsList={authors} />, {
       wrapper: TestWrapper,
     });
@@ -104,9 +105,6 @@ describe("CourseCard", () => {
       wrapper: TestWrapper,
     });
 
-    // Read token
-    // expect(mockGetItem).toHaveBeenCalledTimes(1);
-
     // Logout button is not visible
     const button = await screen.queryByText(BUTTON_CAPTIONS.showCourse);
     expect(button).toBeInTheDocument();
@@ -125,6 +123,31 @@ describe("CourseCard", () => {
 
     const deleteButton = await screen.findByTestId("deleteCourse");
     expect(deleteButton).toBeInTheDocument();
+  });
+
+  it("should delete button calls deleteCourseThunk", async () => {
+    const initialState = { user: { role: "admin" } };
+    const store = mockStoreCreator(initialState);
+
+    const mockDeleteCourseThunk = jest
+      .spyOn(CoursesThunks, "deleteCourseThunk")
+      .mockReturnValueOnce({ successful: true, type: "courses/deleteCourse" });
+
+    render(
+      <TestWrapper
+        children={<CourseCard course={course} authorsList={authors} />}
+        store={store}
+      />
+    );
+
+    const deleteButton = await screen.findByTestId("deleteCourse");
+    fireEvent.click(deleteButton);
+
+    // Read token
+    expect(mockGetItem).toHaveBeenCalledTimes(1);
+
+    // Call with course id and unknown token
+    expect(mockDeleteCourseThunk).toHaveBeenCalledWith(course.id, undefined);
   });
 
   it("should have update button when the user has admin role", async () => {

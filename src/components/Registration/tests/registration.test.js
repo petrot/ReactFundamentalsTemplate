@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import { Registration } from "../Registration";
 import {
@@ -8,6 +8,13 @@ import {
 } from "../../../test-helpers";
 import { BUTTON_CAPTIONS } from "../../../constants";
 import * as Services from "../../../services";
+import React from "react";
+
+const mockedUsedNavigate = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockedUsedNavigate,
+}));
 
 describe("Registration", () => {
   beforeAll(() => {
@@ -55,13 +62,10 @@ describe("Registration", () => {
     expect(button).toBeInTheDocument();
   });
 
-  it("should submit form with valid values", async () => {
+  it("should submit form with valid values and navigate to login", async () => {
     const mockCreateUserService = jest
       .spyOn(Services, "createUser")
       .mockReturnValueOnce({ successful: true });
-
-    // const navigateMock = jest.fn();
-    // useNavigateMock.mockReturnValue(navigateMock);
 
     render(<Registration />, { wrapper: TestWrapper });
 
@@ -75,10 +79,44 @@ describe("Registration", () => {
     fireEvent.change(passwordInput, { target: { value: "New Password" } });
     fireEvent.click(button);
 
-    expect(mockCreateUserService).toHaveBeenCalledWith({
-      email: "New Email",
-      name: "New Name",
-      password: "New Password",
+    await waitFor(() => {
+      expect(mockCreateUserService).toHaveBeenCalledWith({
+        email: "New Email",
+        name: "New Name",
+        password: "New Password",
+      });
+
+      expect(mockedUsedNavigate).toHaveBeenCalledWith("/login", {
+        replace: true,
+      });
+    });
+  });
+
+  it("should submit form with valid values and not navigate to login on unsuccessful response", async () => {
+    const mockCreateUserService = jest
+      .spyOn(Services, "createUser")
+      .mockReturnValueOnce({ successful: false });
+
+    render(<Registration />, { wrapper: TestWrapper });
+
+    const nameInput = await screen.findByLabelText("Name");
+    const emailInput = await screen.findByLabelText("Email");
+    const passwordInput = await screen.findByLabelText("Password");
+    const button = await screen.findByText(BUTTON_CAPTIONS.register);
+
+    fireEvent.change(nameInput, { target: { value: "New Name" } });
+    fireEvent.change(emailInput, { target: { value: "New Email" } });
+    fireEvent.change(passwordInput, { target: { value: "New Password" } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(mockCreateUserService).toHaveBeenCalledWith({
+        email: "New Email",
+        name: "New Name",
+        password: "New Password",
+      });
+
+      expect(mockedUsedNavigate).not.toHaveBeenCalled();
     });
   });
 

@@ -16,7 +16,7 @@ export const EmptyCourseList = () => {
 
         {userRole === "admin" ? (
           <>
-            <p>Please use "Add New Course" button to add your first course'</p>
+            <p>Please use "Add New Course" button to add your first course</p>
 
             <div className={styles.addButton}>
               <Button
